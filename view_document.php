@@ -123,7 +123,7 @@ foreach($qry as $k => $v){
 			},
 			success:function(resp){
 				alert_toast("Data successfully assigned",'success');
-				location.reload();
+				location.reload(1500);
 				// if(resp==1){
 					
 				// 	setTimeout(function(){
