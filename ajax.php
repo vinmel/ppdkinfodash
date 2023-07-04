@@ -9,7 +9,7 @@ if($action == 'login'){
 		echo $login;
 }
 if($action == 'logout'){
-	$logout = $crud->logout();
+	$logout = $crud-> logout();
 	if($logout)
 		echo $logout;
 }
@@ -49,6 +49,11 @@ if($action == 'delete_user'){
 	$save = $crud->delete_user();
 	if($save)
 		echo $save;
+}
+if($action == 'assign_file'){
+	$assign_file = $crud->assign_file();
+	if($assign_file)
+		echo $assign_file;
 }
 
 ob_end_flush();

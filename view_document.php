@@ -107,6 +107,34 @@ foreach($qry as $k => $v){
     uni_modal("<i class='fa fa-assign'></i> Assign This Document", "modal_assign_file.php?did=" + documentId);
 	});
 
+	function assign_file(){
+		start_load();
+		const data = {
+			document_id: <?php echo $_GET['id'] ?>,
+			recipient: $("#recipient option:selected").val(),
+		};
+		console.log(JSON.stringify(data));
+		$.ajax({
+			url:'ajax.php?action=assign_file',
+			method:'POST',
+			data: data,
+			error: function(xhr, status, error) {
+				console.error(error);
+			},
+			success:function(resp){
+				alert_toast("Data successfully assigned",'success');
+				location.reload();
+				// if(resp==1){
+					
+				// 	setTimeout(function(){
+				// 		location.reload();
+				// 	},1500);
+
+				// }
+			}
+		});
+	}
+
 
 	
 </script>

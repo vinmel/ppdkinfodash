@@ -47,13 +47,14 @@
                     }
                     
                     // Retrieve documents based on document ID
-                    $documentId = $_GET['document_id'];
+                    //$documentId = $_GET['document_id'];
+                    $qrySharedFiles = $conn->query("SELECT * FROM shared_files WHERE recipient = '{$_SESSION['login_id']}'");
                     $qry = $conn->query("SELECT * FROM documents" . $where . " ORDER BY unix_timestamp(date_created) DESC");
 
                     //
                     
-                    while ($row = $qry->fetch_assoc()):
-                        $document = $conn->query("SELECT * FROM documents WHERE id = '{$row['document_id']}'")->fetch_assoc();
+                    while ($row = $qrySharedFiles->fetch_assoc()): //[{ id, recipient_id, document_id }, { id, recipient_id,  } ]
+                        $document = $conn->query("SELECT * FROM documents WHERE document_id = '{$row['document_id']}'")->fetch_assoc();
 						// $user = $conn->query("SELECT * FROM documents WHERE id = '{$row['recipient']}'")->fetch_assoc();
                         $trans = get_html_translation_table(HTML_ENTITIES, ENT_QUOTES);
                         unset($trans["\""], $trans["<"], $trans[">"], $trans["<h2"]);
@@ -73,10 +74,10 @@
                                     <a href="./index.php?page=edit_document&id=<?php echo $document['document_id'] ?>" class="btn btn-primary btn-flat">
                                         <i class="fas fa-edit"></i>
                                     </a>
-                                    <a href="./index.php?page=view_document&id=<?php echo $document['id'] ?>" class="btn btn-info btn-flat">
+                                    <a href="./index.php?page=view_document&id=<?php echo $document['document_id'] ?>" class="btn btn-info btn-flat">
                                         <i class="fas fa-eye"></i>
                                     </a>
-                                    <button type="button" class="btn btn-danger btn-flat delete_document" data-id="<?php echo $document['id'] ?>">
+                                    <button type="button" class="btn btn-danger btn-flat delete_document" data-id="<?php echo $document['document_id'] ?>">
                                         <i class="fas fa-trash"></i>
                                     </button>
                                 </div>
@@ -114,4 +115,6 @@
             }
         });
     }
+
+   
 </script>

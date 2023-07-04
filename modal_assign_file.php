@@ -1,36 +1,41 @@
-<?php include'db_connect.php' ?>
+<?php include 'db_connect.php' ?>
+
 
 <div class="form-row">
-<div class="col-md-6">
-<div class="form-group">
+	<form action="assign_file">
+		<div class="col-md-6">
+			<div class="form-group">
 				<label for="">Select the document riciepent</label>
-				<select class="form-control" name="riciepent" id ="document">
-				<option selected="selected" value="">Select</option>
+				<select class="form-control" name="recipient" id="recipient">
+					<option selected="selected" value="">Select</option>
 
 					<?php
 
-				//Get all unions from database
-				$qry = $conn->query("SELECT * FROM users WHERE type='3'");
-				while($row = $qry->fetch_assoc()){ ?>
+					//Get all unions from database
+					$qry = $conn->query("SELECT * FROM users WHERE type='3'");
+					while ($row = $qry->fetch_assoc()) { ?>
 
-					<option value="<?php echo $row['id'] ?>"> <?php echo $row['firstname']?> </option>
-				<?php
-				}
+						<option value="<?php echo $row['id'] ?>"> <?php echo $row['firstname'] ?> </option>
+						<?php
+					}
 
-				?> </select>
-	</div>
-</div>
+					?>
+				</select>
+			</div>
+		</div>
+	</form>
 </div>
 <div class="modal-footer display p-0 m-0">
-        <button type="submit" class="btn bg-gradient-primary" type="button" onclick="copyToClipboard('#link')"><i class="fa fa-copy"></i> Assign</button>
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+	<button type="submit" class="btn bg-gradient-primary" type="button" onclick="assign_file()"><i
+			class="fa fa-copy"></i> Assign</button>
+	<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
 </div>
 <style>
-	#uni_modal .modal-footer{
+	#uni_modal .modal-footer {
 		display: none
 	}
-	#uni_modal .modal-footer.display{
+
+	#uni_modal .modal-footer.display {
 		display: flex
 	}
 </style>
-	

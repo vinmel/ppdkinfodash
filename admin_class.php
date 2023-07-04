@@ -164,4 +164,16 @@ Class Action {
 			return 1;
 		}
 	}
+
+	function assign_file() {
+		extract($_POST);
+		$data = "recipient = '$recipient' ";
+		$data .= ", document_id = '$document_id';";
+		$query = "INSERT INTO shared_files SET $data";
+		echo $query;
+		$save = $this->db->query($query);
+		if($save) {
+			return 1;
+		}
+	}
 }
