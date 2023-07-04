@@ -36,6 +36,8 @@
 						<th>Action</th>
 					</tr>
 				</thead>
+
+				
 				<tbody> <!--table for crud data-->
 					<?php
 					$i = 1;
