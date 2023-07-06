@@ -1,4 +1,4 @@
-Free Download Source Code "Online files Sharing "
+Free Download Source Code Online document sharing system concept.
 
 FIRST Download
 
@@ -29,5 +29,3 @@ pass: admin123
 
 create your own user
 
-****** https:1sourcecodr.blogspot.com ******
-Subcribe my You tube Channel **** 1 Source code ****
