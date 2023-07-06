@@ -33,6 +33,7 @@
 					     <?php if($_SESSION['login_type'] == 1): ?>
 						<th>User</th>
 					    <?php endif; ?>
+						<th>Date Created</th>
 						<th>Action</th>
 					</tr>
 				</thead>
@@ -50,6 +51,7 @@
 					else:
 						$where = " where user_id = '{$_SESSION['login_id']}' ";
 					endif;
+					
 					$qry = $conn->query("SELECT * FROM documents $where order by unix_timestamp(date_created) desc "); //Query for calling data from document
 					while($row= $qry->fetch_assoc()):
 						$trans = get_html_translation_table(HTML_ENTITIES,ENT_QUOTES);
@@ -64,6 +66,7 @@
 						  <?php if($_SESSION['login_type'] == 1 ): ?>
 						<td><?php echo isset($uname[$row['user_id']]) ? $uname[$row['user_id']] : "Deleted User" ?></td>
 					    <?php endif; ?>
+						<td><?php echo date($row['date_created']) ?></td>
 						<td class="text-center">
 							
 		                    <div class="btn-group">

@@ -33,7 +33,7 @@
               <div class="info-box-content">
                 <span class="info-box-text">Total Documents</span>
                 <span class="info-box-number">
-                  <?php echo $conn->query("SELECT * FROM documents  where user_id IN (1,2,3)")->num_rows; ?>
+                  <?php echo $conn->query("SELECT * FROM documents  where user_id ")->num_rows; ?>
                 </span>
               </div>
               <!-- /.info-box-content -->
@@ -42,7 +42,7 @@
           </div>
       </div>
 
-      <?php else: ?>
+      <?php elseif ($_SESSION['login_type']==2): ?>
 	    <div class="col-12">
           <div class="card">
           	<div class="card-body">
@@ -55,7 +55,7 @@
             <div class="info-box">
               <span class="info-box-icon bg-primary elevation-1"><i class="fas fa-folder"></i></span>
               <div class="info-box-content">
-                <span class="info-box-text">Total Documents</span>
+                <span class="info-box-text">Total Document</span>
                 <span class="info-box-number">
                   <?php echo $conn->query("SELECT * FROM documents  where user_id = {$_SESSION['login_id']}")->num_rows; ?>
                 </span>
@@ -65,5 +65,30 @@
             <!-- /.info-box -->
           </div>
           <!-- /.col -->
-        </div>          
+        </div> 
+        
+        <?php elseif ($_SESSION['login_type']==3): ?>
+	    <div class="col-12">
+          <div class="card">
+          	<div class="card-body">
+          		Welcome <?php echo $_SESSION['login_name'] ?>!
+          	</div>
+          </div>
+      </div>
+        <div class="row">
+          <div class="col-12 col-sm-6 col-md-3">
+            <div class="info-box">
+              <span class="info-box-icon bg-primary elevation-1"><i class="fas fa-folder"></i></span>
+              <div class="info-box-content">
+                <span class="info-box-text">Assigned Document</span>
+                <span class="info-box-number">
+                  <?php echo $conn->query("SELECT * FROM shared_files where recipient = {$_SESSION['login_id']}")->num_rows; ?>
+                </span>
+              </div>
+              <!-- /.info-box-content -->
+            </div>
+            <!-- /.info-box -->
+          </div>
+          <!-- /.col -->
+        </div>      
 <?php endif; ?>

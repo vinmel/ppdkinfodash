@@ -55,6 +55,11 @@ if($action == 'assign_file'){
 	if($assign_file)
 		echo $assign_file;
 }
+if($action == 'delete_assign_file'){
+	$delete = $crud->delete_assign_file();
+	if($delete)
+		echo $delete;
+}
 
 ob_end_flush();
 ?>

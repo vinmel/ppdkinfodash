@@ -3,7 +3,7 @@
     <div class="card card-outline card-primary">
         <div class="card-body">
             <table class="table table-hover table-bordered" id="list">
-                <?php if ($_SESSION['login_type'] == 1): ?>
+                <?php if ($_SESSION['login_type'] == 3): ?>
                     <colgroup>
                         <col width="10%">
                         <col width="25%">
@@ -26,10 +26,11 @@
                         <th class="text-center">#</th>
                         <th>Title</th>
                         <th>Description</th>
-                        <?php if ($_SESSION['login_type'] == 1): ?>
-                            <th>User</th>
+                        <?php if ($_SESSION['login_type'] == 3): ?>
+                            <th>Assigned by</th>
                         <?php endif; ?>
-                        <th>Assigned by</th>
+                        
+                        <th>Assigned date</th>
                         <th>Action</th>
                     </tr>
                 </thead>
@@ -37,7 +38,7 @@
                     <?php
                     $i = 1;
                     $where = '';
-                    if ($_SESSION['login_type'] == 1) {
+                    if ($_SESSION['login_type'] == 3) {
                         $user = $conn->query("SELECT * FROM users where id IN (SELECT user_id FROM documents)");
                         while ($row = $user->fetch_assoc()) {
                             $uname[$row['id']] = ucwords($row['lastname'] . ', ' . $row['firstname'] . ' ' . $row['middlename']);
@@ -45,9 +46,8 @@
                     } else {
                         $where = " WHERE user_id = '{$_SESSION['login_id']}' ";
                     }
-                    
+                 
                     // Retrieve documents based on document ID
-                    //$documentId = $_GET['document_id'];
                     $qrySharedFiles = $conn->query("SELECT * FROM shared_files WHERE recipient = '{$_SESSION['login_id']}'");
                     $qry = $conn->query("SELECT * FROM documents" . $where . " ORDER BY unix_timestamp(date_created) DESC");
 
@@ -65,19 +65,22 @@
                             <th class="text-center"><?php echo $i++ ?></th>
                             <td><b><?php echo ucwords($document['title']) ?></b></td>
                             <td><b class="truncate"><?php echo strip_tags($desc) ?></b></td>
-                            <?php if ($_SESSION['login_type'] == 1): ?>
-                                <td><?php echo isset($user['name']) ? ucwords($user['name']) : "Deleted User" ?></td>
+                            <?php if ($_SESSION['login_type'] == 3): ?>
+                                <td><?php echo isset($uname[$row['user_id']]) ? $uname[$row['user_id']] : "Deleted User" ?></td>
                             <?php endif; ?>
+                            <td><?php echo date($row['assigned_date']) ?></td>
                             <td class="text-center">
                                 <!-- Button area -->
                                 <div class="btn-group">
+                                    <?php if($_SESSION['login_type']==2): ?>
                                     <a href="./index.php?page=edit_document&id=<?php echo $document['document_id'] ?>" class="btn btn-primary btn-flat">
                                         <i class="fas fa-edit"></i>
                                     </a>
+                                    <?php endif; ?>
                                     <a href="./index.php?page=view_document&id=<?php echo $document['document_id'] ?>" class="btn btn-info btn-flat">
                                         <i class="fas fa-eye"></i>
                                     </a>
-                                    <button type="button" class="btn btn-danger btn-flat delete_document" data-id="<?php echo $document['document_id'] ?>">
+                                    <button type="button" class="btn btn-danger btn-flat delete_file" data-id="<?php echo $document['document_id'] ?>">
                                         <i class="fas fa-trash"></i>
                                     </button>
                                 </div>
@@ -92,15 +95,15 @@
 <script>
     $(document).ready(function() {
         $('#list').DataTable();
-        $('.delete_document').click(function() {
-            _conf("Are you sure to delete this document?", "delete_document", [$(this).attr('data-id')]);
+        $('.delete_file').click(function() {
+            _conf("Are you sure to delete this document?", "delete_file", [$(this).attr('data-id')]);
         });
     });
 
-    function delete_document($id) {
+    function delete_file($id) {
         start_load();
         $.ajax({
-            url: 'ajax.php?action=delete_file',
+            url: 'ajax.php?action=delete_assign_file',
             method: 'POST',
             data: {
                 id: $id

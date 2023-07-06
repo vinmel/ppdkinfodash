@@ -13,13 +13,14 @@ foreach($qry as $k => $v){
 		
 	</div>
 	<div class="row">
-	<div class="col-md-12">
+	<?php if($_SESSION['login_type']==2): ?>
+	<div class="col-md-12 mb-2">
 	<button class="btn bg-light border float-right" type="button" id="assign" data-docid="<?php $document_id ?>"><i class="fa fa-assign"></i> Assign This Document</button>
-
-		</div>
-		<div class="col-md-12 mb-2">
+    </div>
+	<?php endif; ?>
+		<!-- <div class="col-md-12 mb-2">
 			<button class="btn bg-light border float-right" type="button" id="share"><i class="fa fa-share"></i> Share This Document</button>
-		</div>
+		</div> -->
 	</div>
     <?php endif; ?>
 	<div class="row">

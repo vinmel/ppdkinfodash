@@ -10,6 +10,7 @@ Class Action {
     
     $this->db = $conn;
 	}
+	
 	function __destruct() {
 	    $this->db->close();
 	    ob_end_flush();
@@ -164,7 +165,6 @@ Class Action {
 			return 1;
 		}
 	}
-
 	function assign_file() {
 		extract($_POST);
 		$data = "recipient = '$recipient' ";
@@ -175,5 +175,16 @@ Class Action {
 		if($save) {
 			return 1;
 		}
+	}
+
+	function delete_assign_file(){
+		extract($_POST);
+		
+		$query = "UPDATE shared_files SET is_deleted = 1 WHERE id = $id ";
+		echo $query;
+		$save = $this->db->query($query);
+		if($delete)
+			return 1;
+
 	}
 }
