@@ -42,13 +42,13 @@
               <li class="nav-item">
                 <a href="./index.php?page=new_user" class="nav-link nav-new_user tree-item">
                   <i class="fas fa-angle-right nav-icon"></i>
-                  <p>Add New</p>
+                  <p>Add New User</p>
                 </a>
               </li>
               <li class="nav-item">
                 <a href="./index.php?page=user_list" class="nav-link nav-user_list tree-item">
                   <i class="fas fa-angle-right nav-icon"></i>
-                  <p>List</p>
+                  <p>User List</p>
                 </a>
               </li>
             </ul>
@@ -65,13 +65,13 @@
               <li class="nav-item">
                 <a href="./index.php?page=new_document" class="nav-link nav-new_document tree-item">
                   <i class="fas fa-angle-right nav-icon"></i>
-                  <p>Add New</p>
+                  <p>Add New Document</p>
                 </a>
               </li>
               <li class="nav-item">
                 <a href="./index.php?page=document_list" class="nav-link nav-document_list tree-item">
                   <i class="fas fa-angle-right nav-icon"></i>
-                  <p>List</p>
+                  <p>Document List</p>
                 </a>
               </li>
             </ul>

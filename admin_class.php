@@ -171,18 +171,18 @@ Class Action {
 		$data .= ", document_id = '$document_id';";
 		$query = "INSERT INTO shared_files SET $data";
 		echo $query;
-		$save = $this->db->query($query);
-		if($save) {
+		$assign_file = $this->db->query($query);
+		if($assign_file) {
 			return 1;
 		}
 	}
 
 	function delete_assign_file(){
 		extract($_POST);
-		
-		$query = "UPDATE shared_files SET is_deleted = 1 WHERE id = $id ";
-		echo $query;
-		$save = $this->db->query($query);
+		$delete = $this->db->query("DELETE FROM shared_files  where recipient = ".$id);
+		// $query = "UPDATE shared_files SET is_deleted = 1 WHERE id = $id ";
+		// echo $query;
+		// $save = $this->db->query($query);
 		if($delete)
 			return 1;
 
