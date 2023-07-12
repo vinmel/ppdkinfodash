@@ -50,6 +50,10 @@ header("location:index.php?page=home");
 		background: linear-gradient(to right, #64B5F6, #CE93D8, #EF9A9A);
 	}
 
+  .bg-modal {
+    display: none;
+  }
+
 </style>
 
 <body class="custom-background">
@@ -83,12 +87,12 @@ header("location:index.php?page=home");
               </div>
               <div class="text-end pt-1">
                 <p class="text-sm mb-0 text-capitalize">Jumlah Sekolah</p>
-                <h4 class="mb-0">$53k</h4>
+                <h4 class="mb-0"><?php echo $conn->query("SELECT * FROM users where type IN (1,2,3)")->num_rows; ?> </h4>
               </div>
             </div>
             <hr class="dark horizontal my-0">
            <div class="card-footer p-3">
-              <p class="mb-0">Last Updated <span class="text-success text-sm font-weight-bolder">+55% </span></p>
+              <p class="mb-0">Last Updated <span class="text-success text-sm font-weight-bolder"><?php echo $conn->query("SELECT * FROM users WHERE date_created")->num_rows; ?> </span></p>
             </div> 
           </div>
         </div> <!--Bahagian Card kedua-->
@@ -183,13 +187,9 @@ header("location:index.php?page=home");
       </div> 
     </div>
       </div>
-      
-    
-	
   </main>  
-<!-- </div> -->
-  		<div class="align-self-center w-100"  id="myForm">
-		
+    <div class="bg-modal" id="myForm"> 
+  		<div class="align-self-center w-100" >
   		<div id="login-center" class="bg-dark-5 row justify-content-center">
   			<div class="card col-md-3"> 
         <div class="card-body">
@@ -204,14 +204,17 @@ header("location:index.php?page=home");
   							<input type="password" id="password" name="password" class="form-control form-control-sm">
   						</div>
   						<center><button class="btn-sm btn-block btn-wave col-md-4 btn-primary">Login</button></center>
-  						<center><button class="btn-sm btn-block btn-wave col-md-4 btn-primary"onclick="closeForm()">Close</button></center>
+              <div>
+                <center><button class="btn-sm btn-block btn-wave col-md-4 btn-primary"onclick="closeForm()">Close</button></center>
+              </div>
+  						
 
   					</form>
   				</div>
   			 </div>
   		</div>
- <!-- </div> -->
-  
+      </div>
+    </div>
  
 
   <!-- <a href="#" class="back-to-top"><i class="icofont-simple-up"></i></a> -->

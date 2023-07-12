@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Jul 05, 2023 at 12:53 AM
+-- Generation Time: Jul 13, 2023 at 01:01 AM
 -- Server version: 10.4.27-MariaDB
 -- PHP Version: 8.2.0
 
@@ -42,11 +42,10 @@ CREATE TABLE `documents` (
 --
 
 INSERT INTO `documents` (`document_id`, `title`, `description`, `file_json`, `user_id`, `date_created`, `recipient`) VALUES
-(2, 'Sample documents', '																																&lt;h2&gt;&lt;b&gt;Sample Header&amp;nbsp;&lt;/b&gt;&lt;/h2&gt;&lt;p style=&quot;text-align: justify; &quot;&gt;&lt;font color=&quot;#000000&quot; face=&quot;Open Sans, Arial, sans-serif&quot;&gt;&lt;span style=&quot;font-size: 14px;&quot;&gt;Test first&lt;/span&gt;&lt;/font&gt;&lt;/p&gt;																																											', '[\"1605080340_Sample_Doc.doc\",\"1605080340_sample_pdf_file.pdf\"]', 1, '2020-11-11 15:39:50', ''),
-(5, 'test', '								asdas							', '[\"1686498060_Atomic_Habits_by_James_Clear-1.pdf\"]', 3, '2023-06-11 23:41:56', ''),
-(8, '              Airport chart', 'WBGS airport chart&amp;nbsp;', '[\"1688212320_WBGS LIST OF CHTS.pdf\"]', 5, '2023-07-01 19:53:40', ''),
-(12, '              Cobaan ', '								File mengandungi file&amp;nbsp;							', '[\"1688219880_Atomic_Habits_by_James_Clear-1.pdf\"]', 2, '2023-07-01 21:58:23', ''),
-(13, '             SUBa', 'Test2', '[\"1688481120_Catalog 2021.pdf\"]', 2, '2023-07-04 22:33:01', '');
+(5, 'test', '								asdas							', '[\"1686498060_Atomic_Habits_by_James_Clear-1.pdf\"]', 1, '2023-06-11 23:41:56', ''),
+(15, '              PHP book', 'Learning php', '[\"1688564220_PHP and MySQL Web Development_ Master the Concepts of PHP_ A Step By Step Process ( PDFDrive ).pdf\"]', 5, '2023-07-05 21:37:20', ''),
+(18, '              PHP ', 'Learning php', '[\"1688650920_PHP and MySQL Web Development_ Master the Concepts of PHP_ A Step By Step Process ( PDFDrive ).pdf\"]', 2, '2023-07-06 21:42:54', ''),
+(29, '                           Book Of PHP', '								Learning others							', '[\"1688903520_Laravel 5.1 Beauty_ Creating Beautiful Web Apps with Laravel 5.1 ( PDFDrive ).pdf\"]', 2, '2023-07-09 19:52:59', '');
 
 -- --------------------------------------------------------
 
@@ -58,23 +57,18 @@ CREATE TABLE `shared_files` (
   `id` int(11) NOT NULL,
   `recipient` varchar(255) NOT NULL,
   `document_id` int(11) NOT NULL,
-  `assigned_date` datetime NOT NULL DEFAULT current_timestamp()
+  `assigned_date` datetime NOT NULL DEFAULT current_timestamp(),
+  `is_deleted` tinyint(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `shared_files`
 --
 
-INSERT INTO `shared_files` (`id`, `recipient`, `document_id`, `assigned_date`) VALUES
-(2, '4', 8, '2023-07-01 21:06:02'),
-(3, '', 12, '2023-07-04 22:26:17'),
-(4, '4', 12, '2023-07-04 22:27:21'),
-(5, '4', 12, '2023-07-04 22:28:04'),
-(6, '4', 12, '2023-07-04 22:29:12'),
-(7, '4', 12, '2023-07-04 22:30:00'),
-(8, '3', 13, '2023-07-04 22:33:12'),
-(9, '3', 12, '2023-07-04 22:36:07'),
-(10, '4', 13, '2023-07-04 23:23:39');
+INSERT INTO `shared_files` (`id`, `recipient`, `document_id`, `assigned_date`, `is_deleted`) VALUES
+(13, '4', 29, '2023-07-09 22:44:49', 0),
+(14, '4', 18, '2023-07-09 22:51:08', 0),
+(15, '3', 18, '2023-07-09 22:51:11', 0);
 
 -- --------------------------------------------------------
 
@@ -101,7 +95,7 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `firstname`, `lastname`, `middlename`, `contact`, `address`, `email`, `password`, `type`, `avatar`, `date_created`) VALUES
-(1, 'Admin', 'Aja', '', '+12354654787', 'Sample', 'admin@admin.com', '0192023a7bbd73250516f069df18b500', 1, '', '2020-11-11 15:35:19'),
+(1, 'Admin', 'Melvin', '', '+12354654787', 'Sample', 'admin@admin.com', '0192023a7bbd73250516f069df18b500', 1, '', '2020-11-11 15:35:19'),
 (2, 'John', 'Smith', 'C', '+14526-5455-44', 'Address', 'jsmith@sample.com', '25d55ad283aa400af464c76d713c07ad', 2, '1605080820_avatar.jpg', '2020-11-11 09:24:40'),
 (3, 'MARCO', 'SAM', '', '012312312332', 'kuching sarawak', 'marco_polo@gmail.com', '25f9e794323b453885f5181f1b624d0b', 3, '1683250260_tikurak.jpg', '2023-05-05 09:31:00'),
 (4, 'MERVIN ', 'ROVER', '', '380192840-9182', 'kuching sarwak', 'mervin@gmail.com', '25f9e794323b453885f5181f1b624d0b', 3, '', '2023-06-15 22:04:09'),
@@ -137,13 +131,13 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `documents`
 --
 ALTER TABLE `documents`
-  MODIFY `document_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `document_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
 
 --
 -- AUTO_INCREMENT for table `shared_files`
 --
 ALTER TABLE `shared_files`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- AUTO_INCREMENT for table `users`
