@@ -148,13 +148,39 @@ header("location:index.php?page=home");
           </div>
         </div> <!--Bahagian Card ke4-->
       </div> <!--Bahagian Card ke 1-4-->
+      <div class="bg-modal" id="myForm"> 
+  		<div class="align-self-center w-100" >
+  		<div id="login-center" class="bg-dark-5 row justify-content-center">
+  			<div class="card col-md-3"> 
+        <div class="card-body">
+				  <h5 class="text-dark-blue text-center "><b>Kuching District Education Office Information Management Dashboard</b></h5>
+  					<form id="login-form" >
+  						<div class="form-group">
+  							<label for="email" class="control-label text-dark">Email</label>
+  							<input type="text" id="email" name="email" class="form-control form-control-sm">
+  						</div>
+  						<div class="form-group">
+  							<label for="password" class="control-label text-dark">Password</label>
+  							<input type="password" id="password" name="password" class="form-control form-control-sm">
+  						</div>
+  						<center><button class="btn-sm btn-block btn-wave col-md-4 btn-primary">Login</button></center>
+              <div>
+                <center><button class="btn-sm btn-block btn-wave col-md-4 btn-primary"onclick="closeForm()">Close</button></center>
+              </div>
+  					</form>
+  				</div>
+  			 </div>
+  		</div>
+      </div>
+    </div>
+ 
 
       <div class="row mt-4"> 
         <div class="col-lg-6">
-          <div class="card mb-4">
+          <div class="card mb-4" width="10%">
               <div class="card-header">
-                  <i class="fas fa-chart-pie me-1"></i>
-                  Pie Chart Example
+                  <i class="fas fa-chart-pie me-1" ></i>
+                    Percentage of Kuching District Education Office Staff By Grade
               </div>
               <div class="card-body"><canvas id="myPieChart" width="80%" height="30"></canvas></div>
               <div class="card-footer small text-muted">Updated yesterday at 11:59 PM</div>
@@ -188,34 +214,7 @@ header("location:index.php?page=home");
     </div>
       </div>
   </main>  
-    <div class="bg-modal" id="myForm"> 
-  		<div class="align-self-center w-100" >
-  		<div id="login-center" class="bg-dark-5 row justify-content-center">
-  			<div class="card col-md-3"> 
-        <div class="card-body">
-				  <h5 class="text-dark-blue text-center "><b>Kuching District Education Office Information Dashboard</b></h5>
-  					<form id="login-form" >
-  						<div class="form-group">
-  							<label for="email" class="control-label text-dark">Email</label>
-  							<input type="text" id="email" name="email" class="form-control form-control-sm">
-  						</div>
-  						<div class="form-group">
-  							<label for="password" class="control-label text-dark">Password</label>
-  							<input type="password" id="password" name="password" class="form-control form-control-sm">
-  						</div>
-  						<center><button class="btn-sm btn-block btn-wave col-md-4 btn-primary">Login</button></center>
-              <div>
-                <center><button class="btn-sm btn-block btn-wave col-md-4 btn-primary"onclick="closeForm()">Close</button></center>
-              </div>
-  						
-
-  					</form>
-  				</div>
-  			 </div>
-  		</div>
-      </div>
-    </div>
- 
+    
 
   <!-- <a href="#" class="back-to-top"><i class="icofont-simple-up"></i></a> -->
 

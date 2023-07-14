@@ -76,13 +76,23 @@
               </li>
             </ul>
           </li> 
-          <li class="nav-item">
-            <a href="./index.php?page=update_info" class="nav-link nav-update_info">
+          <!-- Public Dashboard -->
+        <li class="nav-item dropdown">
+            <a href="#" class="nav-link nav-is-tree nav-update_district">
               <i class="nav-icon fas fa-tachometer-alt"></i>
               <p>
                 Public Dashboard
               </p>
+              <i class="right fas fa-angle-left"></i>
             </a> 
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="./index.php?page=manage_staffs_info" class="nav-link nav-manage_staffs tree-item">
+                  <i class="fas fa-angle-right nav-icon"></i>
+                  <p>Manage Staffs Info</p>
+                </a>
+              </li>
+            </ul>
           </li>  
         <?php elseif ($_SESSION['login_type']==2): ?>
           <li class="nav-item">

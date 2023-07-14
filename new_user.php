@@ -86,6 +86,7 @@
 	}
 </style>
 <script>
+	//logic process for password 
 	$('[name="password"],[name="cpass"]').keyup(function(){
 		var pass = $('[name="password"]').val()
 		var cpass = $('[name="cpass"]').val()
@@ -109,6 +110,7 @@
 	        reader.readAsDataURL(input.files[0]);
 	    }
 	}
+
 	$('#manage_user').submit(function(e){
 		e.preventDefault()
 		$('input').removeClass("border-danger")

@@ -8,7 +8,7 @@
       </li>
     <?php endif; ?>
       <li>
-        <a class="nav-link text-white"  href="./" role="button"> <large><b>Kuching District Education Office Information Dashboard</b></large></a>
+        <a class="nav-link text-white"  href="./" role="button"> <large><b>Kuching District Education Office Information Management Dashboard</b></large></a>
       </li>
     </ul>
         

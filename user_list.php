@@ -23,7 +23,7 @@
 					<?php
 					$i = 1;
 					$type = array('',"Admin","User Level 1","User Level 2");
-					$qry = $conn->query("SELECT *,concat(lastname,', ',firstname,' ',middlename) as name FROM users order by concat(lastname,', ',firstname,' ',middlename) asc");
+					$qry = $conn->query("SELECT *,concat(firstname,'',middlename,' ',lastname) as name FROM users order by concat(firstname,'',middlename,' ',lastname) asc");
 					while($row= $qry->fetch_assoc()):
 					?>
 					<tr>

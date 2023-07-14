@@ -107,7 +107,7 @@
   <!-- Main Footer -->
   <footer class="main-footer"> 
     <div class="float-right d-none d-sm-inline-block">
-      <b><i class="fa fa-copyright" aria-hidden="true"></i> Kuching District Education Office Information Dashboard</b>
+      <b><i class="fa fa-copyright" aria-hidden="true"></i> Kuching District Education Office</b>
     </div>
   </footer>
 </div>
