@@ -65,7 +65,24 @@
             <!-- /.info-box -->
           </div>
           <!-- /.col -->
+          <div class="col-12 col-sm-6 col-md-3">
+            <div class="info-box">
+              <span class="info-box-icon bg-primary elevation-1"><i class="fas fa-folder"></i></span>
+              <div class="info-box-content">
+                <span class="info-box-text">Assigned Document</span>
+                <span class="info-box-number">
+                  <?php echo $conn->query("SELECT * FROM shared_files where id = {$_SESSION['login_id']} AND is_deleted=0")->num_rows; ?>
+                </span>
+              </div>
+              <!-- /.info-box-content -->
+            </div>
+            <!-- /.info-box -->
+          </div>
         </div> 
+        <!-- <div class="row"> -->
+          
+          <!-- /.col -->
+        <!-- </div>       -->
         
         <?php elseif ($_SESSION['login_type']==3): ?>
 	    <div class="col-12">
@@ -82,7 +99,7 @@
               <div class="info-box-content">
                 <span class="info-box-text">Assigned Document</span>
                 <span class="info-box-number">
-                  <?php echo $conn->query("SELECT * FROM shared_files where recipient = {$_SESSION['login_id']}")->num_rows; ?>
+                  <?php echo $conn->query("SELECT * FROM shared_files where recipient = {$_SESSION['login_id']} AND is_deleted=0")->num_rows; ?>
                 </span>
               </div>
               <!-- /.info-box-content -->

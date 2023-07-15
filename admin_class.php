@@ -140,7 +140,9 @@ Class Action {
 	function delete_file(){
 		extract($_POST);
 		$doc = $this->db->query("SELECT * FROM documents where document_id= $id")->fetch_array();
-		$delete = $this->db->query("DELETE FROM documents where document_id = ".$id);
+		$query = "UPDATE documents SET is_deleted = 1 where document_id = $id"; //buat soft delete and tambah column is_deleted di table
+		echo $query;
+		$delete = $this->db->query($query);
 		if($delete){
 			foreach(json_decode($doc['file_json']) as $k => $v){
 				if(is_file('assets/uploads/'.$v))
@@ -159,6 +161,7 @@ Class Action {
 		if(empty($id)){
 			$save = $this->db->query("INSERT INTO documents set $data ");
 		}else{
+			$data .= ", updated_at='".date('Y-m-d H:i:s')."'";
 			$save = $this->db->query("UPDATE documents set $data where document_id = $id");
 		}
 		if($save){
@@ -168,8 +171,9 @@ Class Action {
 	function assign_file() {
 		extract($_POST);
 		$data = "recipient = '$recipient' ";
-		$data .= ", document_id = '$document_id';";
-		$query = "INSERT INTO shared_files SET $data";
+		$data .= ", document_id = '$document_id' ";
+		$data .= ", created_by = '$user_id';";
+		$query = "INSERT INTO shared_files SET $data"; //"recipient = '$recipient', document_id = '$document_id';";
 		echo $query;
 		$assign_file = $this->db->query($query);
 		if($assign_file) {
@@ -179,12 +183,12 @@ Class Action {
 
 	function delete_assign_file(){
 		extract($_POST);
-		$delete = $this->db->query("DELETE FROM shared_files  where recipient = ".$id);
-		// $query = "UPDATE shared_files SET is_deleted = 1 WHERE id = $id ";
-		// echo $query;
-		// $save = $this->db->query($query);
-		if($delete)
+		// $delete = $this->db->query("DELETE FROM shared_files  where recipient = ".$id);
+		$query = "UPDATE shared_files SET is_deleted = 1 WHERE id = $id";
+		echo $query;
+		$delete = $this->db->query($query);
+		if($delete) {
 			return 1;
-
+		}
 	}
 }

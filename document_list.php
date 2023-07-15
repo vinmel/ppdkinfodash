@@ -8,7 +8,7 @@
 		</div>
 		<div class="card-body">
 			<table class="table tabe-hover table-bordered" id="list"> 
-			     <?php if($_SESSION['login_type'] == 1 ): ?> <!--Try to find how view in for both-->
+			     <?php if($_SESSION['login_type'] == 1 ): ?> 
 				<colgroup>
 					<col width="10%">
 					<col width="25%">
@@ -34,6 +34,7 @@
 						<th>User</th>
 					    <?php endif; ?>
 						<th>Date Created</th>
+						<th>Date Updated</th>
 						<th>Action</th>
 					</tr>
 				</thead>
@@ -51,8 +52,15 @@
 					else:
 						$where = " where user_id = '{$_SESSION['login_id']}' ";
 					endif;
+
+					if ($_SESSION['login_type'] == 1 ) {
+						$qry = $conn->query("SELECT * FROM documents WHERE is_deleted = 0 order by unix_timestamp(date_created) desc");
+					} else {
+						$qry = $conn->query("SELECT * FROM documents WHERE is_deleted = 0 AND user_id = '{$_SESSION['login_id']}' order by unix_timestamp(date_created) desc");
+					}
 					
-					$qry = $conn->query("SELECT * FROM documents $where order by unix_timestamp(date_created) desc "); //Query for calling data from document
+					
+					// $qry = $conn->query("SELECT * FROM documents $where order by unix_timestamp(date_created) desc "); //Query for calling data from document
 					while($row= $qry->fetch_assoc()):
 						$trans = get_html_translation_table(HTML_ENTITIES,ENT_QUOTES);
 						unset($trans["\""], $trans["<"], $trans[">"], $trans["<h2"]);
@@ -67,8 +75,8 @@
 						<td><?php echo isset($uname[$row['user_id']]) ? $uname[$row['user_id']] : "Deleted User" ?></td>
 					    <?php endif; ?>
 						<td><?php echo date($row['date_created']) ?></td>
+						<td><?php echo date("d/m/Y H:i:s",strtotime($row['updated_at'])) ?></td>
 						<td class="text-center">
-							
 		                    <div class="btn-group">
 		                        <a href="./index.php?page=edit_document&id=<?php echo $row['document_id'] ?>" class="btn btn-primary btn-flat">
 		                          <i class="fas fa-edit"></i>
@@ -100,9 +108,14 @@
 		$.ajax({
 			url:'ajax.php?action=delete_file',
 			method:'POST',
-			data:{id:$id},
+			data:{
+				id:$id
+			},
+			error: function(xhr, status, error) {
+				window.alert(error);
+			},
 			success:function(resp){
-				if(resp==1){
+				if(resp){
 					alert_toast("Data successfully deleted",'success')
 					setTimeout(function(){
 						location.reload()

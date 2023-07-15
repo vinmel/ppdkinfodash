@@ -26,9 +26,9 @@
                         <th class="text-center">#</th>
                         <th>Title</th>
                         <th>Description</th>
-                        <?php if ($_SESSION['login_type'] == 3): ?>
-                            <th>Assigned by</th>
-                        <?php endif; ?>
+                       
+                        <th>Assigned by</th>
+                       
                         
                         <th>Assigned date</th>
                         <th>Action</th>
@@ -48,14 +48,14 @@
                     }
                  
                     // Retrieve documents based on document ID
-                    $qrySharedFiles = $conn->query("SELECT * FROM shared_files WHERE recipient = '{$_SESSION['login_id']}'");
+                    $qrySharedFiles = $conn->query("SELECT * FROM shared_files WHERE is_deleted = 0 AND recipient = '{$_SESSION['login_id']}'");
                     $qry = $conn->query("SELECT * FROM documents" . $where . " ORDER BY unix_timestamp(date_created) DESC");
 
                     //
                     
                     while ($row = $qrySharedFiles->fetch_assoc()): //[{ id, recipient_id, document_id }, { id, recipient_id,  } ]
                         $document = $conn->query("SELECT * FROM documents WHERE document_id = '{$row['document_id']}'")->fetch_assoc();
-						// $user = $conn->query("SELECT * FROM documents WHERE id = '{$row['recipient']}'")->fetch_assoc();
+						$user = $conn->query("SELECT CONCAT(firstname,' ', lastname) as fullname FROM users WHERE id = '{$row['created_by']}'")->fetch_assoc();
                         $trans = get_html_translation_table(HTML_ENTITIES, ENT_QUOTES);
                         unset($trans["\""], $trans["<"], $trans[">"], $trans["<h2"]);
                         $desc = strtr(html_entity_decode($document['description']), $trans);
@@ -65,9 +65,7 @@
                             <th class="text-center"><?php echo $i++ ?></th>
                             <td><b><?php echo ucwords($document['title']) ?></b></td>
                             <td><b class="truncate"><?php echo strip_tags($desc) ?></b></td>
-                            <?php if ($_SESSION['login_type'] == 3): ?>
-                                <td><?php echo isset($uname[$row['user_id']]) ? $uname[$row['user_id']] : "Deleted User" ?></td>
-                            <?php endif; ?>
+                            <td><?php echo isset($user['fullname']) ? $user['fullname'] : "Deleted User" ?></td>
                             <td><?php echo date($row['assigned_date']) ?></td>
                             <td class="text-center">
                                 <!-- Button area -->
@@ -80,7 +78,7 @@
                                     <a href="./index.php?page=view_document&id=<?php echo $document['document_id'] ?>" class="btn btn-info btn-flat">
                                         <i class="fas fa-eye"></i>
                                     </a>
-                                    <button type="button" class="btn btn-danger btn-flat delete_file" data-id="<?php echo $document['document_id'] ?>">
+                                    <button type="button" class="btn btn-danger btn-flat delete_file" data-id="<?php echo $row['id'] ?>">
                                         <i class="fas fa-trash"></i>
                                     </button>
                                 </div>
@@ -108,8 +106,11 @@
             data: {
                 id: $id
             },
+            error: function(xhr, status, error) {
+				window.alert(error);
+			},
             success: function(resp) {
-                if (resp == 1) {
+                if (resp) {
                     alert_toast("Data successfully deleted", 'success');
                     setTimeout(function() {
                         location.reload();

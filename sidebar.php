@@ -119,7 +119,7 @@
               <li class="nav-item">
                 <a href="./index.php?page=assign_file_list" class="nav-link nav-assign_file_list tree-item">
                 <i class="fas fa-angle-right nav-icon"></i>
-                <p>Assign Document List</p>
+                <p>Assign Document History</p>
                </a>
               </li>
               

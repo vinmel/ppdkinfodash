@@ -113,6 +113,7 @@ foreach($qry as $k => $v){
 		const data = {
 			document_id: <?php echo $_GET['id'] ?>,
 			recipient: $("#recipient option:selected").val(),
+			user_id: <?php echo $_SESSION['login_id'] ?>
 		};
 		console.log(JSON.stringify(data));
 		$.ajax({

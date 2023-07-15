@@ -3,6 +3,13 @@
 <?php 
 session_start();
 include('./db_connect.php');
+
+$sql = "SELECT * FROM staff_info";
+$result = $conn->query($sql);
+
+$data = $result->fetch_assoc();
+print_r($data) 
+
 ?>
 <head>
   <meta charset="utf-8">
@@ -28,9 +35,7 @@ include('./db_connect.php');
 <?php 
 if(isset($_SESSION['login_id']))
 header("location:index.php?page=home");
-
 ?>
-
 </head>
 <style>
 	body{
@@ -137,17 +142,23 @@ header("location:index.php?page=home");
                 <i class="material-icons opacity-10">group</i>
               </div>
               <div class="text-end pt-1">
-                <p class="text-sm mb-0 text-capitalize">Jumlah AKP</p>
-                <h4 class="mb-0">$103,430</h4>
+                <p class="text-sm mb-0 text-capitalize">Total of PPD Kuching Staff</p>
+                <h4 class="mb-0"><?php 
+                  $result = $conn->query("SELECT ID,SUM(edu+adm+it+eng) as total FROM staff_info");
+                  // id(0), total(1)
+                  echo $result->fetch_column(1); 
+                ?>
+                </h4>
               </div>
             </div>
             <hr class="dark horizontal my-0">
             <div class="card-footer p-3">
-              <p class="mb-0">Last Updated <span class="text-success text-sm font-weight-bolder">+55%</p>
+              <p class="mb-0">Last Updated <span class="text-success text-sm font-weight-bolder"><?= $data['date_updated']?></p>
             </div>
           </div>
         </div> <!--Bahagian Card ke4-->
       </div> <!--Bahagian Card ke 1-4-->
+
       <div class="bg-modal" id="myForm"> 
   		<div class="align-self-center w-100" >
   		<div id="login-center" class="bg-dark-5 row justify-content-center">
@@ -183,9 +194,10 @@ header("location:index.php?page=home");
                     Percentage of Kuching District Education Office Staff By Grade
               </div>
               <div class="card-body"><canvas id="myPieChart" width="80%" height="30"></canvas></div>
-              <div class="card-footer small text-muted">Updated yesterday at 11:59 PM</div>
+              <div class="card-footer small text-muted">Updated since <?= $data['date_updated']?></div>
           </div>
         </div> 
+        
         <div class="col-lg-6">
           <div class="card mb-4">
               <div class="card-header">
@@ -277,23 +289,31 @@ function closeForm() {
     })
 // JS Pie chart 
 	var ctx = document.getElementById("myPieChart");
+  //$data = [x,y,z] = 1(0),edu(1),adm(2),it(3),eng(4),timestamp(5) 
+  //implode = 'x,y,z'
+  //js.split = js[x,y,z]
+  //js.splice = x,y,z
+
+  const dataMap = '<?php echo implode(",", $data) ?>'.split(','); 
+  console.log(dataMap);
   var myPieChart = new Chart(ctx, {
     type: 'pie',
     data: {
-      labels: ["Blue", "Red", "Yellow", "Green"],
+      labels: ["DG", "N", "F", "J"],
       datasets: [{
-        data: [12.21, 15.58, 11.25, 8.32],
+        data: dataMap.splice(1,4),
         backgroundColor: ['#007bff', '#dc3545', '#ffc107', '#28a745'],
       }],
     },
   });
+
   var ctx = document.getElementById("myPieChart2");
   var myPieChart = new Chart(ctx, {
     type: 'pie',
     data: {
       labels: ["Blue", "Red", "Yellow", "Green"],
       datasets: [{
-        data: [12.21, 15.58, 11.25, 8.32],
+        data: dataMap.splice(1, 4),
         backgroundColor: ['#007bff', '#dc3545', '#ffc107', '#28a745'],
       }],
     },
