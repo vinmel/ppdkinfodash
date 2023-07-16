@@ -62,5 +62,11 @@ if($action == 'delete_assign_file'){
 		echo $delete;
 }
 
+if($action == 'update_staffs'){
+	$save = $crud->update_staffs();
+	if($save)
+		echo $save;
+}
+
 ob_end_flush();
 ?>

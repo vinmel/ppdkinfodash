@@ -28,8 +28,7 @@
                         <th>Description</th>
                        
                         <th>Assigned by</th>
-                       
-                        
+
                         <th>Assigned date</th>
                         <th>Action</th>
                     </tr>

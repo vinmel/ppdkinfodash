@@ -5,7 +5,7 @@
 	<form action="assign_file">
 		<div class="col-md-6">
 			<div class="form-group">
-				<label for="">Select the document riciepent</label>
+				<label for=""><b> Select the document recipient</b></label>
 				<select class="form-control" name="recipient" id="recipient">
 					<option selected="selected" value="">Select</option>
 

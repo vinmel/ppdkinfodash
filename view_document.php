@@ -18,9 +18,6 @@ foreach($qry as $k => $v){
 	<button class="btn bg-light border float-right" type="button" id="assign" data-docid="<?php $document_id ?>"><i class="fa fa-assign"></i> Assign This Document</button>
     </div>
 	<?php endif; ?>
-		<!-- <div class="col-md-12 mb-2">
-			<button class="btn bg-light border float-right" type="button" id="share"><i class="fa fa-share"></i> Share This Document</button>
-		</div> -->
 	</div>
     <?php endif; ?>
 	<div class="row">
@@ -29,7 +26,7 @@ foreach($qry as $k => $v){
 				<div class="card-header">
 					<div class="card-tools">
 						<small class="text-muted">
-							Date Uploaded: <?php echo date("d, Y",strtotime($date_created)) ?>
+							Date Uploaded: <?php echo date("d/m/Y H:i:s",strtotime($date_created)) ?>
 						</small>
 					</div>
 				</div>
@@ -82,6 +79,54 @@ foreach($qry as $k => $v){
 				</div>
 			</div>
 		</div>
+		<?php if($_SESSION['login_type']==2): ?>
+		<div class="cold-md-7"> <!--Assign record table-->
+			<div class="card card-outline card-info">
+				<div class="card-header">
+				<h6><b>Recipient Assigned Record</b></h6>
+				<p>This table contains recipient has been assigned to this document.</p>
+				</div>
+				
+				<div class="card-body">
+					<table class="table tabe-hover table-bordered" id="list">
+						<colgroup>
+							<col width="10%">
+							<col width="25%">
+							<col width="45%">									
+						</colgroup>
+						
+						<thead>
+							<tr>
+								<th class="text-center">No</th>
+								<th>Recipient</th>
+								<th>Date Assigned</th>
+							</tr>
+						</thead>
+
+						<tbody>
+						<?php 
+						$i =1;
+						$where = '';
+					
+						$qrySharedFiles = $conn->query("SELECT * FROM shared_files WHERE is_deleted = 0 AND document_id = '{$_GET['id']}'");
+			
+						while ($row = $qrySharedFiles->fetch_assoc()):
+							$user = $conn->query("SELECT CONCAT(firstname,' ', lastname) as fullname FROM users WHERE id = '{$row['recipient']}'")->fetch_assoc();
+							$document = $conn->query("SELECT * FROM documents WHERE document_id = '{$row['document_id']}'")->fetch_assoc();
+						?>
+
+							<tr>
+								<th class="text-center"><?php echo $i++ ?></th>				
+								<td><?php echo isset($user['fullname']) ? $user['fullname'] : "" ?></td>				
+								<td><?php echo date($row['assigned_date']) ?></td>
+							</tr>
+						<?php endwhile; ?>
+						</tbody>
+					</table>
+				</div>											
+			</div>
+		</div>
+		<?php endif; ?>
 	</div>
 </div>
 <script>

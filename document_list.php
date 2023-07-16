@@ -13,7 +13,7 @@
 					<col width="10%">
 					<col width="25%">
 					<col width="35%">
-					<col width="20%">
+					<col width="12%">
 					<col width="10%">
 				</colgroup>
 			    <?php else: ?>
@@ -27,11 +27,11 @@
 
 				<thead>
 					<tr>
-						<th class="text-center">#</th>
+						<th class="text-center">No</th>
 						<th>Title</th>
 						<th>Description</th>
 					     <?php if($_SESSION['login_type'] == 1): ?>
-						<th>User</th>
+						<th>Upload By</th>
 					    <?php endif; ?>
 						<th>Date Created</th>
 						<th>Date Updated</th>
@@ -40,32 +40,33 @@
 				</thead>
 
 				
-				<tbody> <!--table for crud data-->
+				<tbody> 
+					<!-- query table for crud data-->
 					<?php
-					$i = 1;
-					$where = '';
-					if($_SESSION['login_type'] == 1 ):
-					$user = $conn->query("SELECT * FROM users where id in (SELECT user_id FROM documents) ");
-					while($row = $user->fetch_assoc()){
-						$uname[$row['id']] = ucwords($row['firstname'].', '.$row['lastname'].' '.$row['middlename']);
-					}
-					else:
-						$where = " where user_id = '{$_SESSION['login_id']}' ";
-					endif;
+						$i = 1;
+						$where = '';
+						if($_SESSION['login_type'] == 1 ):
+						$user = $conn->query("SELECT * FROM users where id in (SELECT user_id FROM documents) ");
+						while($row = $user->fetch_assoc()){
+							$uname[$row['id']] = ucwords($row['firstname'].', '.$row['middlename'].' '.$row['lastname']);
+						}
+						else:
+							$where = " where user_id = '{$_SESSION['login_id']}' ";
+						endif;
 
-					if ($_SESSION['login_type'] == 1 ) {
-						$qry = $conn->query("SELECT * FROM documents WHERE is_deleted = 0 order by unix_timestamp(date_created) desc");
-					} else {
-						$qry = $conn->query("SELECT * FROM documents WHERE is_deleted = 0 AND user_id = '{$_SESSION['login_id']}' order by unix_timestamp(date_created) desc");
-					}
-					
-					
-					// $qry = $conn->query("SELECT * FROM documents $where order by unix_timestamp(date_created) desc "); //Query for calling data from document
-					while($row= $qry->fetch_assoc()):
-						$trans = get_html_translation_table(HTML_ENTITIES,ENT_QUOTES);
-						unset($trans["\""], $trans["<"], $trans[">"], $trans["<h2"]);
-						$desc = strtr(html_entity_decode($row['description']),$trans);
-						$desc=str_replace(array("<li>","</li>"), array("",", "), $desc);
+						if ($_SESSION['login_type'] == 1 ) {
+							$qry = $conn->query("SELECT * FROM documents WHERE is_deleted = 0 order by unix_timestamp(date_created) desc");
+						} else {
+							$qry = $conn->query("SELECT * FROM documents WHERE is_deleted = 0 AND user_id = '{$_SESSION['login_id']}' order by unix_timestamp(date_created) desc");
+						}
+						
+						
+						// $qry = $conn->query("SELECT * FROM documents $where order by unix_timestamp(date_created) desc "); //Query for calling data from document
+						while($row= $qry->fetch_assoc()):
+							$trans = get_html_translation_table(HTML_ENTITIES,ENT_QUOTES);
+							unset($trans["\""], $trans["<"], $trans[">"], $trans["<h2"]);
+							$desc = strtr(html_entity_decode($row['description']),$trans);
+							$desc=str_replace(array("<li>","</li>"), array("",", "), $desc);
 					?>
 					<tr>
 						<th class="text-center"><?php echo $i++ ?></th> 
@@ -74,8 +75,16 @@
 						  <?php if($_SESSION['login_type'] == 1 ): ?>
 						<td><?php echo isset($uname[$row['user_id']]) ? $uname[$row['user_id']] : "Deleted User" ?></td>
 					    <?php endif; ?>
-						<td><?php echo date($row['date_created']) ?></td>
-						<td><?php echo date("d/m/Y H:i:s",strtotime($row['updated_at'])) ?></td>
+						<td><?php echo date("d/m/Y H:i:s", strtotime($row['date_created'])) ?></td>
+						<!-- <td><?php echo date("d/m/Y H:i:s",strtotime($row['updated_at'])) ?></td> -->
+						<td><?php
+								if (isset($row['updated_at']) && $row['updated_at'] !== '0000-00-00 00:00:00') {
+									echo date("d/m/Y H:i:s", strtotime($row['updated_at']));
+								} else {
+									echo "No Latest Updated";
+								}
+								?>
+						</td> 
 						<td class="text-center">
 		                    <div class="btn-group">
 		                        <a href="./index.php?page=edit_document&id=<?php echo $row['document_id'] ?>" class="btn btn-primary btn-flat">

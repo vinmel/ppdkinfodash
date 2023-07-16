@@ -191,4 +191,15 @@ Class Action {
 			return 1;
 		}
 	}
+
+	function update_staffs(){
+		extract($_POST);
+		
+		$query = "UPDATE staff_info SET $data  where id = $id";
+		echo $query;		
+		$save = $this->db->query($query);
+		if ($save) {
+			return 1;
+		}
+	}
 }
