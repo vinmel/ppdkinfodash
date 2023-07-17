@@ -8,7 +8,7 @@ $sql = "SELECT * FROM staff_info";
 $result = $conn->query($sql);
 
 $data = $result->fetch_assoc();
-print_r($data)
+// print_r($data)
 
   ?>
 
@@ -62,6 +62,32 @@ print_r($data)
   .bg-modal {
     display: none;
   }
+
+  .btn-close {
+    position: absolute;
+    right: 0;
+    padding: 1em;
+    color: #fff; 
+    opacity: 1;
+  }
+
+
+   .modal-content {
+    width: 80%;
+    margin: 0 auto;
+  }
+
+  .modal-body {
+    padding: 0;
+  }
+
+  .myform {
+    padding: 2em;
+    max-width: 100%;
+    color: #fff;
+    box-shadow: 0 4px 6px 0 rgba(22, 22, 26, 0.18);
+  }
+
 </style>
 
 <body class="custom-background">
@@ -78,16 +104,49 @@ print_r($data)
       <div class="collapse navbar-collapse mt-sm-0 mt-2 me-md-0 me-sm-4" id="navbar">
         <div class="ms-md-auto pe-md-3 d-flex align-items-center">
           <a class="nav-link text-body font-weight-bold px-0">
-            <i class="fa fa-user me-sm-1"></i>
+            <!-- <i class="fa fa-user me-sm-1"></i> -->
             <!-- <button class="open-button" onclick="openForm()">Login</button> -->
-            <button class="btn bg-light border" type="button" data-toggle="modal" data-target="#myForm"><i class="fa fa-user me-sm-1"></i>Login</button>
+            <button class="btn btn-primary" type="button" data-bs-toggle="modal" data-bs-target="#myForm">
+              <i class="fa fa-user me-sm-1"></i>Login</button>
           </a>
         </div>
       </div>
     </div>
   </nav>
+
+  <!-- Modal login-form -->
+
+  <div class="modal fade" id="myForm" tabindex="-1" aria-labelledby="ModalFormLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-body">
+          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+          <div class="myform bg-white">
+            <h5 class="text-dark-blue text-center "><b>Kuching District Education Office Information Management
+                Dashboard Sign In</b></h5>
+            <form id="login-form">
+              <div class="mb-3 mt-4">
+                <label for="email" class="control-label text-dark">Email</label>
+                <input type="text" id="email" name="email" class="form-control form-control-sm">
+              </div>
+              <div class="mb-3">
+                <label for="password" class="control-label text-dark">Password</label>
+                <input type="password" id="password" name="password" class="form-control form-control-sm">
+              </div>
+              <center><button class="btn-sm btn-block btn-wave col-md-4 btn-primary">Login</button></center>
+              <!-- <div>
+        <center><button class="btn-sm btn-block btn-wave col-md-4 btn-primary" onclick="closeForm()">Close</button>
+        </center>
+      </div> -->
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <!-- End Navbar -->
-  <div class="container-fluid py-4">
+  <div class="container-fluid py-2">
     <div class="row">
       <div class="col-xl-3 col-sm-6 mb-xl-0 mb-4"> <!--Bahagian Card pertama-->
         <div class="card">
@@ -97,7 +156,7 @@ print_r($data)
               <i class="material-icons opacity-10">domain</i>
             </div>
             <div class="text-end pt-1">
-              <p class="text-sm mb-0 text-capitalize">Jumlah Sekolah</p>
+              <p class="text-sm mb-0 text-capitalize">Total Schools in the Area</p>
               <h4 class="mb-0">
                 <?php echo $conn->query("SELECT * FROM users where type IN (1,2,3)")->num_rows; ?>
               </h4>
@@ -119,7 +178,7 @@ print_r($data)
               <i class="material-icons opacity-10">face</i>
             </div>
             <div class="text-end pt-1">
-              <p class="text-sm mb-0 text-capitalize">Jumlah Murid</p>
+              <p class="text-sm mb-0 text-capitalize">Total Student's Enrollment</p>
               <h4 class="mb-0">2,300</h4>
             </div>
           </div>
@@ -137,7 +196,7 @@ print_r($data)
               <i class="material-icons opacity-10">person</i>
             </div>
             <div class="text-end pt-1">
-              <p class="text-sm mb-0 text-capitalize">Jumlah Guru</p>
+              <p class="text-sm mb-0 text-capitalize">Total Teachers in the Area</p>
               <h4 class="mb-0">3,462</h4>
             </div>
           </div>
@@ -202,53 +261,21 @@ print_r($data)
     </div>
 
     <div class="row mb-4">
-      <footer class="footer py-4  ">
-        <div class="container-fluid">
-          <div class="row align-items-center justify-content-lg-between">
-            <div class="col-lg-6 mb-lg-0 mb-4">
-              <div class="copyright text-center text-sm text-muted text-lg-start">
-                © Kuching District Education Office
-              </div>
-            </div>
-          </div>
-        </div>
-      </footer>
+      
     </div>
+
+    <footer class=""> 
+    <!-- <div class="float-right d-none d-sm-inline-block"> -->
+      <b class="float-right d-none d-sm-inline-block"><i class="float fa fa-copyright" aria-hidden="true"></i> Kuching District Education Office</b>
+    
+  </footer>
   </div>
   </div>
+  
   </main>
 
-  <div class="bg-modal" id="myForm">
-    <div class="align-self-center w-100">
-      <div id="login-center" class="bg-dark-5 row justify-content-center">
-        <div class="card col-md-3">
-          <div class="card-body">
-            <h5 class="text-dark-blue text-center "><b>Kuching District Education Office Information Management
-                Dashboard</b></h5>
-            <form id="login-form">
-              <div class="form-group">
-                <label for="email" class="control-label text-dark">Email</label>
-                <input type="text" id="email" name="email" class="form-control form-control-sm">
-              </div>
-              <div class="form-group">
-                <label for="password" class="control-label text-dark">Password</label>
-                <input type="password" id="password" name="password" class="form-control form-control-sm">
-              </div>
-              <center><button class="btn-sm btn-block btn-wave col-md-4 btn-primary">Login</button></center>
-              <div>
-                <center><button class="btn-sm btn-block btn-wave col-md-4 btn-primary"
-                    onclick="closeForm()">Close</button></center>
-              </div>
-            </form>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-
-  <!-- <a href="#" class="back-to-top"><i class="icofont-simple-up"></i></a> -->
-
+  <a href="#" class="back-to-top"><i class="icofont-simple-up"></i></a>
+  
 
   <!--   Core JS Files   -->
   <script src="assets/js/core/popper.min.js"></script>
@@ -265,21 +292,25 @@ print_r($data)
 
 
 
+
+  <!-- Use this to put inside the form -->
+  <div class="card-body">
+
+  </div>
+ 
 </body>
 
-
 <script>
-  function openForm() {
-    document.getElementById("myForm").style.display = "block";
-  }
+  // function openForm() {
+  //   document.getElementById("myForm").style.display = "block";
+  // }
 
-  function closeForm() {
-    document.getElementById("myForm").style.display = "none";
-  }
-  $('#login').click(function(){
-		uni_modal("modal_login.php")
-	})
+  // function closeForm() {
+  //   document.getElementById("myForm").style.display = "none";
+  // }
+  //incase my code dont work use these
 
+  //below login script
   $('#login-form').submit(function (e) {
     e.preventDefault()
     $('#login-form button[type="button"]').attr('disabled', true).html('Logging in...');
@@ -309,6 +340,7 @@ print_r($data)
     val = val.replace(/[^0-9 \,]/, '');
     $(this).val(val)
   })
+
   // JS Pie chart 
   var ctx = document.getElementById("myPieChart");
   //$data = [x,y,z] = 1(0),edu(1),adm(2),it(3),eng(4),timestamp(5) 
@@ -323,7 +355,7 @@ print_r($data)
     data: {
       labels: ["DG", "N", "F", "J"],
       datasets: [{
-        data: dataMap.splice(1, 4),
+        data: dataMap.splice(1,4),
         backgroundColor: ['#007bff', '#dc3545', '#ffc107', '#28a745'],
       }],
     },

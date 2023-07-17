@@ -1,14 +1,12 @@
 <?php
 //logic inside here
 require_once('db_connect.php');
-$sql = "SELECT * FROM staff_info";
-$result = $conn->query($sql);
-
-
-$data = $result->fetch_assoc();
-
-print_r($data)
-	?>
+$qry = $conn->query("SELECT * FROM staff_info where id = ".$_GET['id'])->fetch_array();
+foreach($qry as $k => $v){
+	$$k = $v;
+}
+// print_r($result)
+// 	?>
 
 <style>
 	.container {
@@ -25,7 +23,7 @@ print_r($data)
 				<div class="card-tools">
 					<small class="text-muted">
 						Last Updated:
-						<?= $data['date_updated'] ?>
+						<!-- <?= $data['date_updated'] ?> -->
 					</small>
 				</div>
 				<form action="" id="manage_staffs">
@@ -56,24 +54,24 @@ print_r($data)
 								<label for="" class="control-label"> DG = stands for Education officer scheme
 									code</label>
 								<input type="text" name="Secondary School" class="form-control form-control-sm"
-									value="<?= $data['edu'] ?>">
+									value="<?php echo isset($edu) ? $edu : '' ?>">
 							</div>
 							<div class="form-group">
 								<label for="" class="control-label"> N = stands for Administrator officer scheme
 									code</label>
 								<input type="text" name="Secondary School" class="form-control form-control-sm"
-									value="<?= $data['adm'] ?>">
+									value="<?php echo isset($adm) ? $adm : '' ?>">
 							</div>
 							<div class="form-group">
 								<label for="" class="control-label"> F = stands for IT officer scheme code</label>
 								<input type="text" name="Secondary School" class="form-control form-control-sm"
-									value="<?= $data['it'] ?>">
+									value="<?php echo isset($it) ? $it : '' ?>">
 							</div>
 							<div class="form-group">
 								<label for="" class="control-label"> J = stands for Engineering officer scheme
 									code</label>
 								<input type="text" name="Secondary School" class="form-control form-control-sm"
-									value="<?= $data['eng'] ?>">
+									value="<?php echo isset($eng) ? $eng : '' ?>">
 							</div>
 						</div>
 					</div>

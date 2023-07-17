@@ -101,6 +101,14 @@
                 </a>
               </li>
             </ul>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="./index.php?page=manage_schools_info" class="nav-link nav-manage_schools_info tree-item">
+                  <i class="fas fa-angle-right nav-icon"></i>
+                  <p>Manage Schools Info</p>
+                </a>
+              </li>
+            </ul>
           </li>
         <?php elseif ($_SESSION['login_type'] == 2): ?>
           <li class="nav-item">
