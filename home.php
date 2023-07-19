@@ -40,6 +40,19 @@
             </div>
             <!-- /.info-box -->
           </div>
+          <div class="col-12 col-sm-6 col-md-3">
+            <div class="info-box">
+              <span class="info-box-icon bg-primary elevation-1"><i class="fas fa-share-alt"></i></span>
+              <div class="info-box-content">
+                <span class="info-box-text">Total Document Assigned</span>
+                <span class="info-box-number">
+                  <?php echo $conn->query("SELECT * FROM shared_files where is_deleted=0")->num_rows; ?>
+                </span>
+              </div>
+              <!-- /.info-box-content -->
+            </div>
+            <!-- /.info-box -->
+          </div>
       </div>
 
       <?php elseif ($_SESSION['login_type']==2): ?>
@@ -67,11 +80,11 @@
           <!-- /.col -->
           <div class="col-12 col-sm-6 col-md-3">
             <div class="info-box">
-              <span class="info-box-icon bg-primary elevation-1"><i class="fas fa-folder"></i></span>
+              <span class="info-box-icon bg-primary elevation-1"><i class="fas fa-share-alt"></i></span>
               <div class="info-box-content">
-                <span class="info-box-text">Assigned Document</span>
+                <span class="info-box-text">Total Assigned Document</span>
                 <span class="info-box-number">
-                  <?php echo $conn->query("SELECT * FROM shared_files where id = {$_SESSION['login_id']} AND is_deleted=0")->num_rows; ?>
+                  <?php echo $conn->query("SELECT * FROM shared_files where created_by = {$_SESSION['login_id']} AND is_deleted=0")->num_rows; ?>
                 </span>
               </div>
               <!-- /.info-box-content -->
@@ -95,7 +108,7 @@
         <div class="row">
           <div class="col-12 col-sm-6 col-md-3">
             <div class="info-box">
-              <span class="info-box-icon bg-primary elevation-1"><i class="fas fa-folder"></i></span>
+              <span class="info-box-icon bg-primary elevation-1"><i class="fas fa-share-alt"></i></span>
               <div class="info-box-content">
                 <span class="info-box-text">Assigned Document</span>
                 <span class="info-box-number">

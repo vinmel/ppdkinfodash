@@ -18,7 +18,7 @@ Class Action {
 
 	function login(){
 		extract($_POST);
-			$qry = $this->db->query("SELECT *,concat(firstname,'',middlename,' ',lastname) as name FROM users where email = '".$email."' and password = '".md5($password)."' ");
+			$qry = $this->db->query("SELECT *,concat(firstname,' ',middlename,' ',lastname) as name FROM users where email = '".$email."' and password = '".md5($password)."' ");
 		if($qry->num_rows > 0){
 			foreach ($qry->fetch_array() as $key => $value) {
 				if($key != 'password' && !is_numeric($key))
@@ -87,6 +87,7 @@ Class Action {
 				}
 			}
 		}
+		
 		if($_FILES['img']['tmp_name'] != ''){
 			$fname = strtotime(date('y-m-d H:i')).'_'.$_FILES['img']['name'];
 			$move = move_uploaded_file($_FILES['img']['tmp_name'],'assets/uploads/'. $fname);
@@ -194,12 +195,15 @@ Class Action {
 
 	function update_staffs(){
 		extract($_POST);
-		
-		$query = "UPDATE staff_info SET $data  where id = $id";
+		$data .= " result = '$result' ";
+		$query = "UPDATE staff_info SET $data where id = $id";
 		echo $query;		
-		$save = $this->db->query($query);
-		if ($save) {
+		$update_staffs = $this->db->query($query);
+		if ($update_staffs) {
 			return 1;
 		}
 	}
+
+		
+	
 }

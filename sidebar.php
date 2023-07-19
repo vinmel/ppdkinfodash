@@ -86,7 +86,7 @@
           </li>
           <!-- Public Dashboard -->
           <li class="nav-item dropdown">
-            <a href="#" class="nav-link nav-is-tree nav-update_district">
+            <a href="#" class="nav-link nav-is-tree nav-manage_staffs_info nav-manage_schools_info">
               <i class="nav-icon fas fa-tachometer-alt"></i>
               <p>
                 Public Dashboard
@@ -100,8 +100,6 @@
                   <p>Manage Staffs Info</p>
                 </a>
               </li>
-            </ul>
-            <ul class="nav nav-treeview">
               <li class="nav-item">
                 <a href="./index.php?page=manage_schools_info" class="nav-link nav-manage_schools_info tree-item">
                   <i class="fas fa-angle-right nav-icon"></i>

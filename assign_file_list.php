@@ -23,7 +23,7 @@
 
                 <thead>
                     <tr>
-                        <th class="text-center">#</th>
+                        <th class="text-center">No</th>
                         <th>Title</th>
                         <th>Description</th>
                        
