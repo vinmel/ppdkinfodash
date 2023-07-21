@@ -72,7 +72,7 @@
 						<th class="text-center"><?php echo $i++ ?></th> 
 						<td><b><?php echo ucwords($row['title']) ?></b></td>
 						<td><b class="truncate"><?php echo strip_tags($desc) ?></b></td>
-						  <?php if($_SESSION['login_type'] == 1 ): ?>
+						<?php if($_SESSION['login_type'] == 1 ): ?>
 						<td><?php echo isset($uname[$row['user_id']]) ? $uname[$row['user_id']] : "Deleted User" ?></td>
 					    <?php endif; ?>
 						<td><?php echo date("d/m/Y H:i:s", strtotime($row['date_created'])) ?></td>

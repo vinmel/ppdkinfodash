@@ -16,6 +16,7 @@
 						<th>Contact #</th>
 						<th>Role</th>
 						<th>Email</th>
+						<th>Status</th>
 						<th>Action</th>
 					</tr>
 				</thead>
@@ -32,6 +33,8 @@
 						<td><b><?php echo $row['contact'] ?></b></td>
 						<td><b><?php echo $type[$row['type']] ?></b></td>
 						<td><b><?php echo $row['email'] ?></b></td>
+											<!-- 1,2,3 intellisense--> 
+						<td><b><?php echo ($row['isActive'] == 1 ? "Active" : "Not Active") ?></b></td>
 						<td class="text-center">
 							<button type="button" class="btn btn-default btn-sm btn-flat border-info wave-effect text-info dropdown-toggle" data-toggle="dropdown" aria-expanded="true">
 		                      Action

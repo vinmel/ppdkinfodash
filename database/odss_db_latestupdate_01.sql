@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Jul 20, 2023 at 07:21 AM
+-- Generation Time: Jul 20, 2023 at 11:48 PM
 -- Server version: 10.4.27-MariaDB
 -- PHP Version: 8.2.0
 
@@ -93,6 +93,11 @@ CREATE TABLE `staff_info` (
   `adm` varchar(100) NOT NULL,
   `it` varchar(100) NOT NULL,
   `eng` varchar(100) NOT NULL,
+  `tsec_schl` varchar(100) NOT NULL,
+  `tpm_schl` varchar(100) NOT NULL,
+  `tcsec_schl` varchar(100) NOT NULL,
+  `tcpm_schl` varchar(100) NOT NULL,
+  `tot_student` varchar(100) NOT NULL,
   `date_updated` datetime NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -100,8 +105,8 @@ CREATE TABLE `staff_info` (
 -- Dumping data for table `staff_info`
 --
 
-INSERT INTO `staff_info` (`id`, `edu`, `adm`, `it`, `eng`, `date_updated`) VALUES
-(1, '60', '20', '62', '4', '2023-07-19 23:49:17');
+INSERT INTO `staff_info` (`id`, `edu`, `adm`, `it`, `eng`, `tsec_schl`, `tpm_schl`, `tcsec_schl`, `tcpm_schl`, `tot_student`, `date_updated`) VALUES
+(1, '60', '25', '62', '3', '26', '61', '3800', '4500', '89000', '2023-07-20 23:46:34');
 
 --
 -- Triggers `staff_info`
@@ -140,7 +145,7 @@ CREATE TABLE `users` (
 
 INSERT INTO `users` (`id`, `firstname`, `lastname`, `middlename`, `contact`, `address`, `email`, `password`, `type`, `avatar`, `date_created`, `isActive`) VALUES
 (1, 'Admin', 'Melvin', '', '+12354654787', 'Sample', 'admin@admin.com', '0192023a7bbd73250516f069df18b500', 1, '', '2020-11-11 15:35:19', 1),
-(2, 'John', 'Smith', 'C', '+14526-5455-44', 'Address', 'jsmith@sample.com', 'd41d8cd98f00b204e9800998ecf8427e', 2, '1605080820_avatar.jpg', '2020-11-11 09:24:40', 1),
+(2, 'John', 'Smith', 'C', '+14526-5455-44', 'Address', 'jsmith@sample.com', '25d55ad283aa400af464c76d713c07ad', 2, '1605080820_avatar.jpg', '2020-11-11 09:24:40', 1),
 (3, 'MARCO', 'MEDING', 'SAMEON', '012312312332', 'kuching sarawak', 'marco_polo@gmail.com', '25f9e794323b453885f5181f1b624d0b', 3, '1683250260_tikurak.jpg', '2023-05-05 09:31:00', 1),
 (4, 'MERVIN ', 'ROVER', 'ANAK', '380192840-9182', 'kuching sarwak', 'mervin@gmail.com', '25f9e794323b453885f5181f1b624d0b', 3, '', '2023-06-15 22:04:09', 1),
 (5, 'Paul', 'Solos', 'L', '80890-90-', 'Batu Kawa', 'paul@solos.com', '25d55ad283aa400af464c76d713c07ad', 2, '', '2023-07-01 18:28:38', 1);

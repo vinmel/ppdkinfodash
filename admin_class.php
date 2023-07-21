@@ -18,13 +18,21 @@ Class Action {
 
 	function login(){
 		extract($_POST);
-			$qry = $this->db->query("SELECT *,concat(firstname,' ',middlename,' ',lastname) as name FROM users where email = '".$email."' and password = '".md5($password)."' ");
+		$qry = $this->db->query("SELECT *,concat(firstname,' ',middlename,' ',lastname) as name FROM users where email = '".$email."' and password = '".md5($password)."'");
 		if($qry->num_rows > 0){
 			foreach ($qry->fetch_array() as $key => $value) {
+				if($key == 'isActive' && $value == 0) {
+					session_destroy();
+					return 4;
+				}
 				if($key != 'password' && !is_numeric($key))
 					$_SESSION['login_'.$key] = $value;
 			}
-				return 1;
+			//[id, firstname, password, name, isActive]
+			// loop 1: password
+			// loop 2: name
+			// loop 3: isActive
+			return 1;
 		}else{
 			return 3;
 		}
@@ -46,12 +54,19 @@ Class Action {
 					$v = md5($v);
 				if(empty($data)){
 					$data .= " $k='$v' ";
-				}else{
+				} 
+				else{
 					$data .= ", $k='$v' ";
 				}
+				
 			}
 		}
 
+		if (!isset($isActive)) {
+			$data .= ", isActive=0";
+		}
+
+		//firstname={a, && isActive = 1}
 		$check = $this->db->query("SELECT * FROM users where email ='$email' ".(!empty($id) ? " and id != {$id} " : ''))->num_rows;
 		if($check > 0){
 			return 2;
@@ -65,12 +80,14 @@ Class Action {
 		}
 		if(empty($id)){
 			$save = $this->db->query("INSERT INTO users set $data");
+			// return "INSERT INTO users set $data";
 		}else{
 			$save = $this->db->query("UPDATE users set $data where id = $id");
+			// return "UPDATE users set $data where id = $id";
 		}
 
 		if($save){
-			return 1;
+			return $save;
 		}
 	}
 	function update_user(){
@@ -195,8 +212,18 @@ Class Action {
 
 	function update_staffs(){
 		extract($_POST);
-		$data .= " result = '$result' ";
-		$query = "UPDATE staff_info SET $data where id = $id";
+		$query = "UPDATE staff_info SET";
+		$query .= " edu = '$edu' ,";
+		$query .= " adm = '$adm' ,";
+		$query .= " it = '$it' ,";
+		$query .= " eng = '$eng' , ";
+		$query .= " tsec_schl = '$tsec_schl' ,";
+		$query .= " tpm_schl = '$tpm_schl' ,";
+		$query .= " tcsec_schl = '$tcsec_schl' ,";
+		$query .= " tcpm_schl = '$tcpm_schl' ,";
+		$query .= " tot_student = '$tot_student' ";
+		$query .= " where id = $id";
+		
 		echo $query;		
 		$update_staffs = $this->db->query($query);
 		if ($update_staffs) {

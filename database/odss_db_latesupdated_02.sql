@@ -2,8 +2,8 @@
 -- version 5.2.0
 -- https://www.phpmyadmin.net/
 --
--- Host: 127.0.0.1:3306
--- Generation Time: Jul 20, 2023 at 07:21 AM
+-- Host: 127.0.0.1
+-- Generation Time: Jul 21, 2023 at 02:01 PM
 -- Server version: 10.4.27-MariaDB
 -- PHP Version: 8.2.0
 
@@ -54,6 +54,28 @@ INSERT INTO `documents` (`document_id`, `title`, `description`, `file_json`, `us
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `schools_info`
+--
+
+CREATE TABLE `schools_info` (
+  `id` int(11) NOT NULL,
+  `schools_type` varchar(100) NOT NULL,
+  `total` int(11) NOT NULL,
+  `table_no` int(11) NOT NULL,
+  `date_updated` datetime NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `schools_info`
+--
+
+INSERT INTO `schools_info` (`id`, `schools_type`, `total`, `table_no`, `date_updated`) VALUES
+(1, 'SK', 38, 1, '2023-07-21 09:53:48'),
+(2, 'SJK(C)', 5, 1, '2023-07-21 09:53:48');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `shared_files`
 --
 
@@ -93,6 +115,11 @@ CREATE TABLE `staff_info` (
   `adm` varchar(100) NOT NULL,
   `it` varchar(100) NOT NULL,
   `eng` varchar(100) NOT NULL,
+  `tsec_schl` varchar(100) NOT NULL,
+  `tpm_schl` varchar(100) NOT NULL,
+  `tcsec_schl` varchar(100) NOT NULL,
+  `tcpm_schl` varchar(100) NOT NULL,
+  `tot_student` varchar(100) NOT NULL,
   `date_updated` datetime NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -100,8 +127,8 @@ CREATE TABLE `staff_info` (
 -- Dumping data for table `staff_info`
 --
 
-INSERT INTO `staff_info` (`id`, `edu`, `adm`, `it`, `eng`, `date_updated`) VALUES
-(1, '60', '20', '62', '4', '2023-07-19 23:49:17');
+INSERT INTO `staff_info` (`id`, `edu`, `adm`, `it`, `eng`, `tsec_schl`, `tpm_schl`, `tcsec_schl`, `tcpm_schl`, `tot_student`, `date_updated`) VALUES
+(1, '60', '25', '62', '3', '26', '61', '3800', '4500', '89000', '2023-07-20 23:46:34');
 
 --
 -- Triggers `staff_info`
@@ -140,7 +167,7 @@ CREATE TABLE `users` (
 
 INSERT INTO `users` (`id`, `firstname`, `lastname`, `middlename`, `contact`, `address`, `email`, `password`, `type`, `avatar`, `date_created`, `isActive`) VALUES
 (1, 'Admin', 'Melvin', '', '+12354654787', 'Sample', 'admin@admin.com', '0192023a7bbd73250516f069df18b500', 1, '', '2020-11-11 15:35:19', 1),
-(2, 'John', 'Smith', 'C', '+14526-5455-44', 'Address', 'jsmith@sample.com', 'd41d8cd98f00b204e9800998ecf8427e', 2, '1605080820_avatar.jpg', '2020-11-11 09:24:40', 1),
+(2, 'John', 'Smith', 'C', '+14526-5455-44', 'Address', 'jsmith@sample.com', '25d55ad283aa400af464c76d713c07ad', 2, '1605080820_avatar.jpg', '2020-11-11 09:24:40', 1),
 (3, 'MARCO', 'MEDING', 'SAMEON', '012312312332', 'kuching sarawak', 'marco_polo@gmail.com', '25f9e794323b453885f5181f1b624d0b', 3, '1683250260_tikurak.jpg', '2023-05-05 09:31:00', 1),
 (4, 'MERVIN ', 'ROVER', 'ANAK', '380192840-9182', 'kuching sarwak', 'mervin@gmail.com', '25f9e794323b453885f5181f1b624d0b', 3, '', '2023-06-15 22:04:09', 1),
 (5, 'Paul', 'Solos', 'L', '80890-90-', 'Batu Kawa', 'paul@solos.com', '25d55ad283aa400af464c76d713c07ad', 2, '', '2023-07-01 18:28:38', 1);
@@ -154,6 +181,12 @@ INSERT INTO `users` (`id`, `firstname`, `lastname`, `middlename`, `contact`, `ad
 --
 ALTER TABLE `documents`
   ADD PRIMARY KEY (`document_id`);
+
+--
+-- Indexes for table `schools_info`
+--
+ALTER TABLE `schools_info`
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `shared_files`
@@ -182,6 +215,12 @@ ALTER TABLE `users`
 --
 ALTER TABLE `documents`
   MODIFY `document_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=34;
+
+--
+-- AUTO_INCREMENT for table `schools_info`
+--
+ALTER TABLE `schools_info`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `shared_files`

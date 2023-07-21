@@ -97,7 +97,7 @@
               <li class="nav-item">
                 <a href="./index.php?page=manage_staffs_info" class="nav-link nav-manage_staffs_info tree-item">
                   <i class="fas fa-angle-right nav-icon"></i>
-                  <p>Manage Staffs Info</p>
+                  <p>General Informations</p>
                 </a>
               </li>
               <li class="nav-item">

@@ -3,13 +3,16 @@
 <?php
 session_start();
 include('./db_connect.php');
-
 $sql = "SELECT * FROM staff_info";
+// $sql2 = "SELECT * FROM users;";
 $result = $conn->query($sql);
-
+// $resultUsers = $conn -> query($sql2)
 $data = $result->fetch_assoc();
 // print_r($data)
 
+$sql2 = "SELECT MAX(date_updated) AS latest_date FROM schools_info;";
+$resultUsers = $conn->query($sql2);
+$data2 = $resultUsers->fetch_assoc();
   ?>
 
 <head>
@@ -67,12 +70,12 @@ $data = $result->fetch_assoc();
     position: absolute;
     right: 0;
     padding: 1em;
-    color: #fff; 
+    color: #fff;
     opacity: 1;
   }
 
 
-   .modal-content {
+  .modal-content {
     width: 80%;
     margin: 0 auto;
   }
@@ -87,7 +90,11 @@ $data = $result->fetch_assoc();
     color: #fff;
     box-shadow: 0 4px 6px 0 rgba(22, 22, 26, 0.18);
   }
-
+  /* .tr {
+   line-height: 10px;
+   min-height: 10px;
+   height: 10px;
+} */
 </style>
 
 <body class="custom-background">
@@ -158,15 +165,19 @@ $data = $result->fetch_assoc();
             <div class="text-end pt-1">
               <p class="text-sm mb-0 text-capitalize">Total Schools in the Area</p>
               <h4 class="mb-0">
-                <?php echo $conn->query("SELECT * FROM users where type IN (1,2,3)")->num_rows; ?>
+              <?php
+              $result = $conn->query("SELECT SUM(total) AS total_sum FROM schools_info WHERE id >= 1 AND id <= 12");
+              $row = $result->fetch_assoc();
+              echo $row['total_sum'];
+              ?>
               </h4>
             </div>
           </div>
           <hr class="dark horizontal my-0">
           <div class="card-footer p-3">
-            <p class="mb-0">Last Updated <span class="text-success text-sm font-weight-bolder">
-                <?php echo $conn->query("SELECT * FROM users WHERE date_created")->num_rows; ?>
-              </span></p>
+            <p class="mb-0">Last Updated: <span class="text-success text-sm font-weight-bolder">
+                <?= $data2['latest_date'] ?>
+            </p></span>
           </div>
         </div>
       </div> <!--Bahagian Card kedua-->
@@ -179,12 +190,20 @@ $data = $result->fetch_assoc();
             </div>
             <div class="text-end pt-1">
               <p class="text-sm mb-0 text-capitalize">Total Student's Enrollment</p>
-              <h4 class="mb-0">2,300</h4>
+              <h4 class="mb-0">
+                <?php
+                $result = $conn->query("SELECT tot_student FROM staff_info");
+                $row = $result->fetch_assoc();
+                echo $row['tot_student'];
+                ?>
+              </h4>
             </div>
           </div>
           <hr class="dark horizontal my-0">
           <div class="card-footer p-3">
-            <p class="mb-0">Last Updated <span class="text-success text-sm font-weight-bolder">+55%</p>
+            <p class="mb-0">Last Updated: <span class="text-success text-sm font-weight-bolder">
+                <?= $data['date_updated'] ?>
+            </p></span>
           </div>
         </div>
       </div> <!--Bahagian Card ke3-->
@@ -197,12 +216,20 @@ $data = $result->fetch_assoc();
             </div>
             <div class="text-end pt-1">
               <p class="text-sm mb-0 text-capitalize">Total Teachers in the Area</p>
-              <h4 class="mb-0">3,462</h4>
+              <h4 class="mb-0">
+                <?php
+                $result = $conn->query("SELECT ID,SUM(tcsec_schl+tcpm_schl) as total FROM staff_info");
+                // id(0), total(1)
+                echo $result->fetch_column(1);
+                ?>
+              </h4>
             </div>
           </div>
           <hr class="dark horizontal my-0">
           <div class="card-footer p-3">
-            <p class="mb-0">Last Updated <span class="text-success text-sm font-weight-bolder">+55%</p>
+            <p class="mb-0">Last Updated: <span class="text-success text-sm font-weight-bolder">
+                <?= $data['date_updated'] ?>
+            </p></span>
           </div>
         </div>
       </div>
@@ -226,8 +253,9 @@ $data = $result->fetch_assoc();
           </div>
           <hr class="dark horizontal my-0">
           <div class="card-footer p-3">
-            <p class="mb-0">Last Updated <span class="text-success text-sm font-weight-bolder">
+            <p class="mb-0">Last Updated: <span class="text-success text-sm font-weight-bolder">
                 <?= $data['date_updated'] ?>
+              </span>
             </p>
           </div>
         </div>
@@ -239,10 +267,10 @@ $data = $result->fetch_assoc();
         <div class="card mb-4" width="10%">
           <div class="card-header">
             <i class="fas fa-chart-pie me-1"></i>
-            Percentage of Kuching District Education Office Staff By Grade
+            Total of Kuching District Education Office Staff By Grade
           </div>
           <div class="card-body"><canvas id="myPieChart" width="80%" height="30"></canvas></div>
-          <div class="card-footer small text-muted">Updated since
+          <div class="card-footer small text-muted">Updated since:
             <?= $data['date_updated'] ?>
           </div>
         </div>
@@ -251,31 +279,90 @@ $data = $result->fetch_assoc();
       <div class="col-lg-6">
         <div class="card mb-4">
           <div class="card-header">
-            <i class="fas fa-chart-pie me-1"></i>
-            Pie Chart Example
+            <i class="fas fa-table"></i>
+            List type of schools
           </div>
-          <div class="card-body"><canvas id="myPieChart2" width="80%" height="30"></canvas></div>
-          <div class="card-footer small text-muted">Updated yesterday at 11:59 PM</div>
+          <div class="card-body">
+            <div class="row">
+              <!-- <canvas id="myPieChart2" width="80%" height="30"></canvas>
+              </div> -->
+              <!-- table_order = 1 -->
+              <div class="col-md-6 ">
+                <table class="table tabe-hover table-bordered">                  
+                  <thead>
+                    <tr>
+                      <th class="text-center">No</th>
+                      <th>Type of schools</th>
+                      <th>Total</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <?php
+                    $i = 1;
+                    $qry = $conn->query("SELECT * FROM schools_info WHERE id >= 1 AND id <= 6 AND table_no = 1");
+                    // Loop through each row and display the data
+                    while ($row = $qry->fetch_assoc()):
+                    ?>
+                    <tr>
+                        <td class="text-center"><?php echo $i++ ?></td>
+                        <td class="text-center"><?php echo $row['schools_type'] ?></td>
+                        <td class="text-center"><?php echo $row['total'] ?></td>
+                    </tr>
+                    <?php endwhile; ?>
+                  </tbody>
+                </table>
+              </div>
+              <!-- table order = 2 -->
+              <div class="col-md-6">
+                <table class="table tabe-hover table-bordered">
+                  <thead>
+                    <tr>
+                      <th class="text-center">No</th>
+                      <th>Type of schools</th>
+                      <th>Total</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <?php
+                    $i = 7;
+                    $qry = $conn->query("SELECT * FROM schools_info WHERE id >= 7 AND id <= 12 AND table_no = 2");
+                    // Loop through each row and display the data
+                    while ($row = $qry->fetch_assoc()):
+                    ?>
+                    <tr>
+                        <td class="text-center"><?php echo $i++ ?></td>
+                        <td class="text-center"><?php echo $row['schools_type'] ?></td>
+                        <td class="text-center"><?php echo $row['total'] ?></td>
+                    </tr>
+                    <?php endwhile; ?>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+            <div class="card-footer small text-muted">Updated since at:
+            <?= $data2['latest_date'] ?>
+            </div>
+          </div>
         </div>
       </div>
-    </div>
 
-    <div class="row mb-4">
-      
-    </div>
+      <div class="row mb-4">
 
-    <footer class=""> 
-    <!-- <div class="float-right d-none d-sm-inline-block"> -->
-      <b class="float-right d-none d-sm-inline-block"><i class="float fa fa-copyright" aria-hidden="true"></i> Kuching District Education Office</b>
-    
-  </footer>
+      </div>
+
+      <footer class="">
+        <!-- <div class="float-right d-none d-sm-inline-block"> -->
+        <b class="float-right d-none d-sm-inline-block"><i class="float fa fa-copyright" aria-hidden="true"></i> Kuching
+          District Education Office</b>
+
+      </footer>
+    </div>
   </div>
-  </div>
-  
+
   </main>
 
   <a href="#" class="back-to-top"><i class="icofont-simple-up"></i></a>
-  
+
 
   <!--   Core JS Files   -->
   <script src="assets/js/core/popper.min.js"></script>
@@ -297,7 +384,7 @@ $data = $result->fetch_assoc();
   <div class="card-body">
 
   </div>
- 
+
 </body>
 
 <script>
@@ -326,8 +413,12 @@ $data = $result->fetch_assoc();
 
       },
       success: function (resp) {
+        // window.alert(resp); 
         if (resp == 1) {
           location.href = 'index.php?page=home';
+        } else if (resp == 4) {
+
+          $('#login-form').prepend('<div class="alert alert-danger">User is not active.</div>')
         } else {
           $('#login-form').prepend('<div class="alert alert-danger">Username or password is incorrect.</div>')
           $('#login-form button[type="button"]').removeAttr('disabled').html('Login');
@@ -355,7 +446,7 @@ $data = $result->fetch_assoc();
     data: {
       labels: ["DG", "N", "F", "J"],
       datasets: [{
-        data: dataMap.splice(1,4),
+        data: dataMap.splice(1, 4),
         backgroundColor: ['#007bff', '#dc3545', '#ffc107', '#28a745'],
       }],
     },
