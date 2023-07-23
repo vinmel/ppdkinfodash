@@ -13,7 +13,7 @@ $data = $result->fetch_assoc();
 $sql2 = "SELECT MAX(date_updated) AS latest_date FROM schools_info;";
 $resultUsers = $conn->query($sql2);
 $data2 = $resultUsers->fetch_assoc();
-  ?>
+?>
 
 <head>
   <meta charset="utf-8">
@@ -90,11 +90,48 @@ $data2 = $resultUsers->fetch_assoc();
     color: #fff;
     box-shadow: 0 4px 6px 0 rgba(22, 22, 26, 0.18);
   }
+
   /* .tr {
    line-height: 10px;
    min-height: 10px;
    height: 10px;
 } */
+  .message-container {
+    background-color: #f2f2f2;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+
+  .message {
+    font-size: 16px;
+    line-height: 1.6;
+    color: #333;
+    margin: 0;
+  }
+
+  .phone-number {
+    color: #008080;
+    font-weight: bold;
+  }
+  .password-container {
+  position: relative;
+}
+
+.toggle-password {
+  position: absolute;
+  top: 75%;
+  right: 10px;
+  transform: translateY(-50%);
+  cursor: pointer;
+  z-index: 1;
+}
+
+/* Adjust the icon size as needed */
+#eye-icon {
+  font-size: 10px;
+}
+
 </style>
 
 <body class="custom-background">
@@ -104,7 +141,7 @@ $data2 = $resultUsers->fetch_assoc();
     <div class="container-fluid py-1 px-3">
       <nav aria-label="breadcrumb">
         <ol class="breadcrumb bg-transparent mb-0 pb-0 pt-1 px-0 me-sm-6 me-5">
-          <li class="breadcrumb-item text-sm text-dark active" aria-current="page">Dashboard</li>
+          <li class="font-weight-bolder breadcrumb-item text-sm text-dark active" aria-current="page">Dashboard</li>
         </ol>
         <h4 class="font-weight-bolder mb-0">Kuching District Education Office Information Dashboard</h4>
       </nav>
@@ -123,7 +160,7 @@ $data2 = $resultUsers->fetch_assoc();
 
   <!-- Modal login-form -->
 
-  <div class="modal fade" id="myForm" tabindex="-1" aria-labelledby="ModalFormLabel" aria-hidden="true">
+  <div class=" modal fade" id="myForm" tabindex="-1" aria-labelledby="ModalFormLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
       <div class="modal-content">
         <div class="modal-body">
@@ -136,21 +173,46 @@ $data2 = $resultUsers->fetch_assoc();
                 <label for="email" class="control-label text-dark">Email</label>
                 <input type="text" id="email" name="email" class="form-control form-control-sm">
               </div>
-              <div class="mb-3">
+              <div class="password-container">
                 <label for="password" class="control-label text-dark">Password</label>
                 <input type="password" id="password" name="password" class="form-control form-control-sm">
+                  <span class="toggle-password" onclick="togglePasswordVisibility()">
+                    <i class="far fa-eye" id="eye-icon"></i>
+                  </span>
               </div>
+              <br>
               <center><button class="btn-sm btn-block btn-wave col-md-4 btn-primary">Login</button></center>
-              <!-- <div>
-        <center><button class="btn-sm btn-block btn-wave col-md-4 btn-primary" onclick="closeForm()">Close</button>
-        </center>
-      </div> -->
+              <a href="#" class="nav-link text-body font-weight-bold px-0" data-bs-toggle="modal"
+                data-bs-target="#myForm1">
+                <center><span class="d-sm-inline d-none">Forgot password ?</span></center>
+              </a>
             </form>
-          </div>
+          </div>          
         </div>
       </div>
     </div>
   </div>
+<!-- Forgot password modal-body -->
+<div class="modal fade" id="myForm1" tabindex="-1" aria-labelledby="MyForm1" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="MyForm1">Forgot Password</h5>
+        </div>
+        <div class="modal-body">
+          <div class="message-container">
+            <p class="message">Please contact the system administrator to reset your password online at <span
+                class="phone-number">082-456789</span>. Thank you.</p>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>     
+     <!-- forgot password modal body end -->
+  
 
   <!-- End Navbar -->
   <div class="container-fluid py-2">
@@ -165,11 +227,11 @@ $data2 = $resultUsers->fetch_assoc();
             <div class="text-end pt-1">
               <p class="text-sm mb-0 text-capitalize">Total Schools in the Area</p>
               <h4 class="mb-0">
-              <?php
-              $result = $conn->query("SELECT SUM(total) AS total_sum FROM schools_info WHERE id >= 1 AND id <= 12");
-              $row = $result->fetch_assoc();
-              echo $row['total_sum'];
-              ?>
+                <?php
+                $result = $conn->query("SELECT SUM(total) AS total_sum FROM schools_info WHERE id >= 1 AND id <= 12");
+                $row = $result->fetch_assoc();
+                echo $row['total_sum'];
+                ?>
               </h4>
             </div>
           </div>
@@ -262,6 +324,7 @@ $data2 = $resultUsers->fetch_assoc();
       </div> <!--Bahagian Card ke4-->
     </div> <!--Bahagian Card ke 1-4-->
 
+    <!-- Piechart # -->
     <div class="row mt-4">
       <div class="col-lg-6">
         <div class="card mb-4" width="10%">
@@ -275,7 +338,7 @@ $data2 = $resultUsers->fetch_assoc();
           </div>
         </div>
       </div>
-
+      <!-- Table list type of schools -->
       <div class="col-lg-6">
         <div class="card mb-4">
           <div class="card-header">
@@ -288,7 +351,7 @@ $data2 = $resultUsers->fetch_assoc();
               </div> -->
               <!-- table_order = 1 -->
               <div class="col-md-6 ">
-                <table class="table tabe-hover table-bordered">                  
+                <table class="table tabe-hover table-bordered">
                   <thead>
                     <tr>
                       <th class="text-center">No</th>
@@ -302,12 +365,18 @@ $data2 = $resultUsers->fetch_assoc();
                     $qry = $conn->query("SELECT * FROM schools_info WHERE id >= 1 AND id <= 6 AND table_no = 1");
                     // Loop through each row and display the data
                     while ($row = $qry->fetch_assoc()):
-                    ?>
-                    <tr>
-                        <td class="text-center"><?php echo $i++ ?></td>
-                        <td class="text-center"><?php echo $row['schools_type'] ?></td>
-                        <td class="text-center"><?php echo $row['total'] ?></td>
-                    </tr>
+                      ?>
+                      <tr>
+                        <td class="text-center">
+                          <?php echo $i++ ?>
+                        </td>
+                        <td class="text-center">
+                          <?php echo $row['schools_type'] ?>
+                        </td>
+                        <td class="text-center">
+                          <?php echo $row['total'] ?>
+                        </td>
+                      </tr>
                     <?php endwhile; ?>
                   </tbody>
                 </table>
@@ -328,27 +397,30 @@ $data2 = $resultUsers->fetch_assoc();
                     $qry = $conn->query("SELECT * FROM schools_info WHERE id >= 7 AND id <= 12 AND table_no = 2");
                     // Loop through each row and display the data
                     while ($row = $qry->fetch_assoc()):
-                    ?>
-                    <tr>
-                        <td class="text-center"><?php echo $i++ ?></td>
-                        <td class="text-center"><?php echo $row['schools_type'] ?></td>
-                        <td class="text-center"><?php echo $row['total'] ?></td>
-                    </tr>
+                      ?>
+                      <tr>
+                        <td class="text-center">
+                          <?php echo $i++ ?>
+                        </td>
+                        <td class="text-center">
+                          <?php echo $row['schools_type'] ?>
+                        </td>
+                        <td class="text-center">
+                          <?php echo $row['total'] ?>
+                        </td>
+                      </tr>
                     <?php endwhile; ?>
                   </tbody>
                 </table>
               </div>
             </div>
-            <div class="card-footer small text-muted">Updated since at:
-            <?= $data2['latest_date'] ?>
-            </div>
+            <small class=" text-muted">Updated since:
+              <?= $data2['latest_date'] ?>
+            </small>
           </div>
         </div>
       </div>
 
-      <div class="row mb-4">
-
-      </div>
 
       <footer class="">
         <!-- <div class="float-right d-none d-sm-inline-block"> -->
@@ -452,18 +524,6 @@ $data2 = $resultUsers->fetch_assoc();
     },
   });
 
-  var ctx = document.getElementById("myPieChart2");
-  var myPieChart = new Chart(ctx, {
-    type: 'pie',
-    data: {
-      labels: ["Blue", "Red", "Yellow", "Green"],
-      datasets: [{
-        data: dataMap.splice(1, 4),
-        backgroundColor: ['#007bff', '#dc3545', '#ffc107', '#28a745'],
-      }],
-    },
-  });
-
   var win = navigator.platform.indexOf('Win') > -1;
   if (win && document.querySelector('#sidenav-scrollbar')) {
     var options = {
@@ -471,6 +531,22 @@ $data2 = $resultUsers->fetch_assoc();
     }
     Scrollbar.init(document.querySelector('#sidenav-scrollbar'), options);
   }
+
+  function togglePasswordVisibility() {
+  var passwordInput = document.getElementById("password");
+  var eyeIcon = document.getElementById("eye-icon");
+
+  if (passwordInput.type === "password") {
+    passwordInput.type = "text";
+    eyeIcon.classList.remove("fa-eye");
+    eyeIcon.classList.add("fa-eye-slash");
+  } else {
+    passwordInput.type = "password";
+    eyeIcon.classList.remove("fa-eye-slash");
+    eyeIcon.classList.add("fa-eye");
+  }
+}
+
 </script>
 
 </html>

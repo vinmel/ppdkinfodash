@@ -1,5 +1,5 @@
 <?php
-include('db_connect.php');
+include ('db_connect.php');
 $sql = "SELECT * FROM staff_info";
 $result = $conn->query($sql);
 $data = $result->fetch_assoc();
@@ -119,8 +119,6 @@ $data = $result->fetch_assoc();
 					console.log(xhr.responseText);
 				}
 			});
-
-
 		});
 	});
 

@@ -68,5 +68,11 @@ if($action == 'update_staffs'){
 		echo $update_staffs;
 }
 
+if($action == 'update_sch'){
+	$update_sch = $crud->update_sch();
+	if($update_sch)
+		echo $update_sch;
+}
+
 ob_end_flush();
 ?>

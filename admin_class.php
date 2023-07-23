@@ -231,6 +231,19 @@ Class Action {
 		}
 	}
 
+	function update_sch(){
+		extract($_POST);
+		$query = "UPDATE schools_info SET";
+		$query .= "sk = '$sk'";
+
+		// query for schools
+
+		echo $query;
+		$update_sch = $this->db->query($query);
+		if ($update_sch) {
+			return 1;
+		}
+	}
 		
 	
 }

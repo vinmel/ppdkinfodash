@@ -50,6 +50,12 @@ foreach($qry as $k => $v){
 			<div class="card card-outline card-primary">
 				<div class="card-header">
 					<h3><b>File/s</b></h3>
+					<?php if($_SESSION['login_type']==3): ?>
+						<small class="text-muted">
+							Please download the file within 30 days after assigned date.
+						</small>
+
+					<?php endif; ?>
 				</div>
 				<div class="card-body">
 					<div class="col-md-12">
@@ -79,8 +85,10 @@ foreach($qry as $k => $v){
 				</div>
 			</div>
 		</div>
+
+		<!--Assign record table-->
 		<?php if($_SESSION['login_type']==2): ?>
-		<div class="cold-md-7"> <!--Assign record table-->
+		<div class="cold-md-7"> 
 			<div class="card card-outline card-info">
 				<div class="card-header">
 				<h6><b>Recipient Assigned Record</b></h6>
@@ -145,9 +153,6 @@ foreach($qry as $k => $v){
 		window.open($link,"_blank")
 		end_load()
 	}
-	$('#share').click(function(){
-		uni_modal("<i class='fa fa-share'></i> Share this document using the link.","modal_share_link.php?did=<?php echo md5($document_id) ?>")
-	})
 	$('#assign').click(function() {
     var documentId = $(this).data('docid');
     uni_modal("<i class='fa fa-assign'></i> Assign This Document", "modal_assign_file.php?did=" + documentId);
@@ -169,15 +174,15 @@ foreach($qry as $k => $v){
 				console.error(error);
 			},
 			success:function(resp){
-				alert_toast("Data successfully assigned",'success');
-				location.reload(1500);
-				// if(resp==1){
-					
-				// 	setTimeout(function(){
-				// 		location.reload();
-				// 	},1500);
+				
+				if(resp){
+					alert_toast("Data successfully assigned",'success');
+				// location.reload(3500);
+					setTimeout(function(){
+						location.reload();
+					},2000);
 
-				// }
+				}
 			}
 		});
 	}
