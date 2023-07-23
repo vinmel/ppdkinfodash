@@ -46,17 +46,7 @@ $data = $result->fetch_assoc();
 							</div>
 						</div>
 						<div class="col-md-6">
-							<b class="text-muted">General information about schools</b>
-							<div class="form-group">
-								<label for="numericInput" class="control-label"> Total Secondary School</label>
-								<input type="" name="tsec_schl" class="form-control form-control-sm"
-									value="<?= $data['tsec_schl'] ?>">
-							</div>
-							<div class="form-group">
-								<label for="" class="control-label"> Total Primary School</label>
-								<input type="text" name="tpm_schl" class="form-control form-control-sm"
-									value="<?= $data['tpm_schl'] ?>">
-							</div>
+							<b class="text-muted">Info on teachers and students in Kuching district schools.</b>
 							<div class="form-group">
 								<label for="" class="control-label"> Total Teacher of Secondary School</label>
 								<input type="text" name="tcsec_schl" class="form-control form-control-sm"
@@ -95,8 +85,6 @@ $data = $result->fetch_assoc();
 				adm: $("input[name='adm']").val(),
 				it: $("input[name='it']").val(),
 				eng: $("input[name='eng']").val(),
-				tsec_schl: $("input[name='tsec_schl']").val(),
-				tpm_schl: $("input[name='tpm_schl']").val(),
 				tcsec_schl: $("input[name='tcsec_schl']").val(),
 				tcpm_schl: $("input[name='tcpm_schl']").val(),
 				tot_student: $("input[name='tot_student']").val(),

@@ -37,9 +37,7 @@
 						<th>Date Updated</th>
 						<th>Action</th>
 					</tr>
-				</thead>
-
-				
+				</thead>			
 				<tbody> 
 					<!-- query table for crud data-->
 					<?php

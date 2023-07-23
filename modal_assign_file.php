@@ -1,11 +1,10 @@
 <?php include 'db_connect.php' ?>
-
-
 <div class="form-row">
 	<form action="assign_file">
+		<b> Select the document recipient</b>
 		<div class="col-md-6">
 			<div class="form-group">
-				<label for=""><b> Select the document recipient</b></label>
+
 				<select class="form-control" name="recipient" id="recipient">
 					<option selected="selected" value="">Select</option>
 
@@ -14,11 +13,10 @@
 					//Get all unions from database
 					$qry = $conn->query("SELECT * FROM users WHERE type='3'");
 					while ($row = $qry->fetch_assoc()) { ?>
-
-						<option value="<?php echo $row['id'] ?>"> <?php echo $row['firstname'] ?> </option>
+						<option value="<?php echo $row['id'] ?>"> <?php echo $row['firstname'] . ' ' . $row['lastname']; ?>
+						</option>
 						<?php
 					}
-
 					?>
 				</select>
 			</div>

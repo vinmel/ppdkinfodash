@@ -217,8 +217,6 @@ Class Action {
 		$query .= " adm = '$adm' ,";
 		$query .= " it = '$it' ,";
 		$query .= " eng = '$eng' , ";
-		$query .= " tsec_schl = '$tsec_schl' ,";
-		$query .= " tpm_schl = '$tpm_schl' ,";
 		$query .= " tcsec_schl = '$tcsec_schl' ,";
 		$query .= " tcpm_schl = '$tcpm_schl' ,";
 		$query .= " tot_student = '$tot_student' ";
@@ -233,14 +231,11 @@ Class Action {
 
 	function update_sch(){
 		extract($_POST);
-		$json = json_decode($totals);
-		$json = $json[0] -> data;
-
-		foreach($json as $key => $value){
-			$value = get_object_vars($value);
-			$query = "UPDATE schools_info SET total = ".$value[1]." WHERE id = ".$value[0].".";
-	
-			echo $query;
+							//id	//$(...).val() id(1) = 40
+		foreach($totals as $key => $value) { 
+			// [0] =/ []
+			//$key = "id", $value = "2"               //40                   //1
+			$query = "UPDATE schools_info SET total = ".$value." WHERE id = ".$key.";";
 			$update_sch = $this->db->query($query);
 		}
 		

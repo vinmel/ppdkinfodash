@@ -10,7 +10,7 @@
 <div class="wrapper">
   <?php include 'topbar.php' ?>
   <?php include 'sidebar.php' ?>
-
+  
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
   	 <div class="toast" id="alert_toast" role="alert" aria-live="assertive" aria-atomic="true">
@@ -42,11 +42,13 @@
       </div><!--/. container-fluid -->
     </section>
     <!-- /.content -->
+    <!-- Modal to download file inside view_document.php -->
     <div class="modal fade" id="confirm_modal" role='dialog'>
     <div class="modal-dialog modal-md" role="document">
       <div class="modal-content">
-        <div class="modal-header">
-        <h5 class="modal-title">Confirmation</h5>
+        
+        <div class="modal-header"> 
+        <h5 class="modal-title">Confirmation</h5> 
       </div>
       <div class="modal-body">
         <div id="delete_content"></div>
@@ -58,6 +60,7 @@
       </div>
     </div>
   </div>
+<!-- Modal form inside manage_user.php -->
   <div class="modal fade" id="uni_modal" role='dialog'>
     <div class="modal-dialog modal-md" role="document">
       <div class="modal-content">
@@ -73,6 +76,7 @@
       </div>
     </div>
   </div>
+
   <div class="modal fade" id="uni_modal_right" role='dialog'>
     <div class="modal-dialog modal-full-height  modal-md" role="document">
       <div class="modal-content">

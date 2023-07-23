@@ -124,31 +124,27 @@ $data = $resultUsers->fetch_assoc();
         $('#manage_sch').submit(function (e) {
             // window.alert(totals);
             e.preventDefault();
-            const totals = [
-                {
-                    id: 1,
-                    total: $("input[name='sk']").val()
 
+            const data = {totals:{
+                    1: $("input[name='sk']").val(), 2: $("input[name='sjkc']").val(), 3: $("input[name='skm']").val(),
+                    4: $("input[name='ska']").val(), 5: $("input[name='skpk']").val(), 6: $("input[name='smk']").val(),
+                    7: $("input[name='smkm']").val(), 8: $("input[name='smka']").val(), 9: $("input[name='klj_a']").val(),
+                    10: $("input[name='sk_s']").val(), 11: $("input[name='kv']").val(), 12: $("input[name='smt']").val()
                 },
-                {
-                    id: 2,
-                    total: $("input[name='sjkc']").val()
-
-                } ,
-                {
-                    id: 3,
-                    total: $("input[name='skm']").val()
-
-                } 
                 // 1: $("input[name='sk']").val(),
                 // 2: $("input[name='sjkc']").val(),
 
-            ];
+            };
+            //php => [ [1] => skval ]
+            //buffer 1 0 1 0 
+            //buffer -> string
+
+            // window.alert(JSON.stringify(totals));
             start_load();
             $.ajax({
-                url: 'ajax.php?=update_sch',
+                url: 'ajax.php?action=update_sch',
                 method : 'POST',
-                data : totals,
+                data : data,
                 success:function(resp){
                     if (resp) {
 						alert_toast('Data successfully updated', 'success');

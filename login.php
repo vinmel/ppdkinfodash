@@ -8,7 +8,6 @@ $sql = "SELECT * FROM staff_info";
 $result = $conn->query($sql);
 // $resultUsers = $conn -> query($sql2)
 $data = $result->fetch_assoc();
-// print_r($data)
 
 $sql2 = "SELECT MAX(date_updated) AS latest_date FROM schools_info;";
 $resultUsers = $conn->query($sql2);
@@ -19,7 +18,7 @@ $data2 = $resultUsers->fetch_assoc();
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-  <title>Main | Kuching District Education Office Information Dashboard</title>
+  <title>Main | Kuching District Education Office Information Management Dashboard</title>
 
   <!--     Fonts and icons     -->
   <link rel="stylesheet" type="text/css"
@@ -35,6 +34,7 @@ $data2 = $resultUsers->fetch_assoc();
   <link id="pagestyle" href="assets/css/material-dashboard.css?v=3.1.0" rel="stylesheet" />
   <!---  Chart column -->
   <link rel="stylesheet" href="assets/css/chart-card.css" />
+
 
   <?php include('./header.php'); ?>
   <?php
@@ -114,24 +114,24 @@ $data2 = $resultUsers->fetch_assoc();
     color: #008080;
     font-weight: bold;
   }
+
   .password-container {
-  position: relative;
-}
+    position: relative;
+  }
 
-.toggle-password {
-  position: absolute;
-  top: 75%;
-  right: 10px;
-  transform: translateY(-50%);
-  cursor: pointer;
-  z-index: 1;
-}
+  .toggle-password {
+    position: absolute;
+    top: 75%;
+    right: 10px;
+    transform: translateY(-50%);
+    cursor: pointer;
+    z-index: 1;
+  }
 
-/* Adjust the icon size as needed */
-#eye-icon {
-  font-size: 10px;
-}
-
+  /* Adjust the icon size as needed */
+  #eye-icon {
+    font-size: 10px;
+  }
 </style>
 
 <body class="custom-background">
@@ -143,7 +143,7 @@ $data2 = $resultUsers->fetch_assoc();
         <ol class="breadcrumb bg-transparent mb-0 pb-0 pt-1 px-0 me-sm-6 me-5">
           <li class="font-weight-bolder breadcrumb-item text-sm text-dark active" aria-current="page">Dashboard</li>
         </ol>
-        <h4 class="font-weight-bolder mb-0">Kuching District Education Office Information Dashboard</h4>
+        <h4 class="font-weight-bolder mb-0">Kuching District Education Office Information Management Dashboard</h4>
       </nav>
       <div class="collapse navbar-collapse mt-sm-0 mt-2 me-md-0 me-sm-4" id="navbar">
         <div class="ms-md-auto pe-md-3 d-flex align-items-center">
@@ -176,9 +176,9 @@ $data2 = $resultUsers->fetch_assoc();
               <div class="password-container">
                 <label for="password" class="control-label text-dark">Password</label>
                 <input type="password" id="password" name="password" class="form-control form-control-sm">
-                  <span class="toggle-password" onclick="togglePasswordVisibility()">
-                    <i class="far fa-eye" id="eye-icon"></i>
-                  </span>
+                <span class="toggle-password" onclick="togglePasswordVisibility()">
+                  <i class="far fa-eye" id="eye-icon"></i>
+                </span>
               </div>
               <br>
               <center><button class="btn-sm btn-block btn-wave col-md-4 btn-primary">Login</button></center>
@@ -187,13 +187,13 @@ $data2 = $resultUsers->fetch_assoc();
                 <center><span class="d-sm-inline d-none">Forgot password ?</span></center>
               </a>
             </form>
-          </div>          
+          </div>
         </div>
       </div>
     </div>
   </div>
-<!-- Forgot password modal-body -->
-<div class="modal fade" id="myForm1" tabindex="-1" aria-labelledby="MyForm1" aria-hidden="true">
+  <!-- Forgot password modal-body -->
+  <div class="modal fade" id="myForm1" tabindex="-1" aria-labelledby="MyForm1" aria-hidden="true">
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
@@ -210,9 +210,9 @@ $data2 = $resultUsers->fetch_assoc();
         </div>
       </div>
     </div>
-  </div>     
-     <!-- forgot password modal body end -->
-  
+  </div>
+  <!-- forgot password modal body end -->
+
 
   <!-- End Navbar -->
   <div class="container-fluid py-2">
@@ -264,7 +264,7 @@ $data2 = $resultUsers->fetch_assoc();
           <hr class="dark horizontal my-0">
           <div class="card-footer p-3">
             <p class="mb-0">Last Updated: <span class="text-success text-sm font-weight-bolder">
-                <?= $data['date_updated'] ?>
+            <?= $data['date_updated'] ?>
             </p></span>
           </div>
         </div>
@@ -330,14 +330,17 @@ $data2 = $resultUsers->fetch_assoc();
         <div class="card mb-4" width="10%">
           <div class="card-header">
             <i class="fas fa-chart-pie me-1"></i>
-            Total of Kuching District Education Office Staff By Grade
+            Percentage of Kuching District Education Office Staff By Grade
           </div>
+          <?php include 'inc/chart.php' ?>
           <div class="card-body"><canvas id="myPieChart" width="80%" height="30"></canvas></div>
-          <div class="card-footer small text-muted">Updated since:
-            <?= $data['date_updated'] ?>
+          <div class="card-footer small text-muted"> Updated since:
+          <?= $data['date_updated'] ?>
           </div>
+
         </div>
       </div>
+
       <!-- Table list type of schools -->
       <div class="col-lg-6">
         <div class="card mb-4">
@@ -350,13 +353,13 @@ $data2 = $resultUsers->fetch_assoc();
               <!-- <canvas id="myPieChart2" width="80%" height="30"></canvas>
               </div> -->
               <!-- table_order = 1 -->
-              <div class="col-md-6 ">
-                <table class="table tabe-hover table-bordered">
+              <div class="col-md-6">
+                <table class="table-bordered table">
                   <thead>
                     <tr>
-                      <th class="text-center">No</th>
-                      <th>Type of schools</th>
-                      <th>Total</th>
+                      <th class="text-center border border-dark">No</th>
+                      <th class="border border-dark">Type of schools</th>
+                      <th class="border border-dark">Total</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -367,18 +370,19 @@ $data2 = $resultUsers->fetch_assoc();
                     while ($row = $qry->fetch_assoc()):
                       ?>
                       <tr>
-                        <td class="text-center">
+                        <td scope="row" class="text-center border border-dark">
                           <?php echo $i++ ?>
                         </td>
-                        <td class="text-center">
+                        <td scope="col" class="text-center border border-dark">
                           <?php echo $row['schools_type'] ?>
                         </td>
-                        <td class="text-center">
+                        <td scope="col" class="text-center border border-dark">
                           <?php echo $row['total'] ?>
                         </td>
                       </tr>
                     <?php endwhile; ?>
                   </tbody>
+                  <tfoot></tfoot>
                 </table>
               </div>
               <!-- table order = 2 -->
@@ -386,9 +390,9 @@ $data2 = $resultUsers->fetch_assoc();
                 <table class="table tabe-hover table-bordered">
                   <thead>
                     <tr>
-                      <th class="text-center">No</th>
-                      <th>Type of schools</th>
-                      <th>Total</th>
+                      <th class="text-center border border-dark">No</th>
+                      <th class="border border-dark">Type of schools</th>
+                      <th class="border border-dark">Total</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -399,13 +403,13 @@ $data2 = $resultUsers->fetch_assoc();
                     while ($row = $qry->fetch_assoc()):
                       ?>
                       <tr>
-                        <td class="text-center">
+                        <td scope="row" class="text-center border border-dark">
                           <?php echo $i++ ?>
                         </td>
-                        <td class="text-center">
+                        <td scope="col" class="text-center border border-dark">
                           <?php echo $row['schools_type'] ?>
                         </td>
-                        <td class="text-center">
+                        <td scope="col" class="text-center border border-dark">
                           <?php echo $row['total'] ?>
                         </td>
                       </tr>
@@ -450,8 +454,6 @@ $data2 = $resultUsers->fetch_assoc();
     crossorigin="anonymous"></script>
 
 
-
-
   <!-- Use this to put inside the form -->
   <div class="card-body">
 
@@ -460,14 +462,6 @@ $data2 = $resultUsers->fetch_assoc();
 </body>
 
 <script>
-  // function openForm() {
-  //   document.getElementById("myForm").style.display = "block";
-  // }
-
-  // function closeForm() {
-  //   document.getElementById("myForm").style.display = "none";
-  // }
-  //incase my code dont work use these
 
   //below login script
   $('#login-form').submit(function (e) {
@@ -506,23 +500,21 @@ $data2 = $resultUsers->fetch_assoc();
 
   // JS Pie chart 
   var ctx = document.getElementById("myPieChart");
-  //$data = [x,y,z] = 1(0),edu(1),adm(2),it(3),eng(4),timestamp(5) 
-  //implode = 'x,y,z'
-  //js.split = js[x,y,z]
-  //js.splice = x,y,z
-
-  const dataMap = '<?php echo implode(",", $data) ?>'.split(',');
-  console.log(dataMap);
+  // Assuming you have echoed the $grades_percentage_json in your PHP code
+  const dataMap = <?php echo $grades_percentage_json; ?>;
+  // Convert the JSON object into an array
+  const dataValues = Object.values(dataMap);
   var myPieChart = new Chart(ctx, {
     type: 'pie',
     data: {
       labels: ["DG", "N", "F", "J"],
       datasets: [{
-        data: dataMap.splice(1, 4),
+        data: dataValues,
         backgroundColor: ['#007bff', '#dc3545', '#ffc107', '#28a745'],
       }],
     },
   });
+
 
   var win = navigator.platform.indexOf('Win') > -1;
   if (win && document.querySelector('#sidenav-scrollbar')) {
@@ -532,20 +524,21 @@ $data2 = $resultUsers->fetch_assoc();
     Scrollbar.init(document.querySelector('#sidenav-scrollbar'), options);
   }
 
+  // password visibilty function
   function togglePasswordVisibility() {
-  var passwordInput = document.getElementById("password");
-  var eyeIcon = document.getElementById("eye-icon");
+    var passwordInput = document.getElementById("password");
+    var eyeIcon = document.getElementById("eye-icon");
 
-  if (passwordInput.type === "password") {
-    passwordInput.type = "text";
-    eyeIcon.classList.remove("fa-eye");
-    eyeIcon.classList.add("fa-eye-slash");
-  } else {
-    passwordInput.type = "password";
-    eyeIcon.classList.remove("fa-eye-slash");
-    eyeIcon.classList.add("fa-eye");
+    if (passwordInput.type === "password") {
+      passwordInput.type = "text";
+      eyeIcon.classList.remove("fa-eye");
+      eyeIcon.classList.add("fa-eye-slash");
+    } else {
+      passwordInput.type = "password";
+      eyeIcon.classList.remove("fa-eye-slash");
+      eyeIcon.classList.add("fa-eye");
+    }
   }
-}
 
 </script>
 

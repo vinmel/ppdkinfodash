@@ -69,12 +69,12 @@
 								value="<?php echo isset($email) ? $email : '' ?>">
 							<small id="#msg"></small>
 						</div>
-						<div class="form-group">
+						<div class="password-container">
 							<label class="control-label">Password</label>
 							<input type="password" class="form-control form-control-sm" name="password" <?php echo isset($id) ? "" : 'required' ?>>
 							<small><i>
 									<?php echo isset($id) ? "Leave this blank if you dont want to change you password" : '' ?>
-								</i></small>
+							</i></small>
 						</div>
 						<div class="form-group">
 							<label class="label control-label">Confirm Password</label>
@@ -84,7 +84,9 @@
 
 						<div class="form-group">
 							<label class="checkbox">
-								<input type="checkbox" id="isActive" class="form-checkbox" value="<?php echo (isset($isActive) && $isActive == 0 ? 0 : 1) ?>" name="isActive" <?php echo (isset($isActive) && $isActive == 0 ? "" : "checked") ?>>
+								<input type="checkbox" id="isActive" class="form-checkbox"
+									value="<?php echo (isset($isActive) && $isActive == 0 ? 0 : 1) ?>" name="isActive"
+									<?php echo (isset($isActive) && $isActive == 0 ? "" : "checked") ?>>
 								Is Active
 							</label>
 						</div>
@@ -105,9 +107,10 @@
 		max-height: 15vh;
 		/*max-width: 6vw;*/
 	}
+	
 </style>
 <script>
-	//logic process for password 
+	//logic process for matching password and confirm password box 
 	$('[name="password"],[name="cpass"]').keyup(function () {
 		var pass = $('[name="password"]').val()
 		var cpass = $('[name="cpass"]').val()
@@ -120,7 +123,7 @@
 				$('#pass_match').attr('data-status', '2').html('<i class="text-danger">Password does not match.</i>')
 			}
 		}
-	})
+	}) 
 	function displayImg(input, _this) {
 		if (input.files && input.files[0]) {
 			var reader = new FileReader();
@@ -132,7 +135,7 @@
 		}
 	}
 
-	$("#isActive").click(function() {
+	$("#isActive").click(function () {
 		const val = $(this).val();
 		$("#isActive").val(val == 1 ? 0 : 1);
 	});
@@ -172,4 +175,5 @@
 			}
 		})
 	})
+
 </script>
