@@ -124,11 +124,26 @@ $data = $resultUsers->fetch_assoc();
         $('#manage_sch').submit(function (e) {
             // window.alert(totals);
             e.preventDefault();
-            const totals ={
-                // fetch value from input  above
-            1: $("input[name='sk']").val(),
+            const totals = [
+                {
+                    id: 1,
+                    total: $("input[name='sk']").val()
 
-            };
+                },
+                {
+                    id: 2,
+                    total: $("input[name='sjkc']").val()
+
+                } ,
+                {
+                    id: 3,
+                    total: $("input[name='skm']").val()
+
+                } 
+                // 1: $("input[name='sk']").val(),
+                // 2: $("input[name='sjkc']").val(),
+
+            ];
             start_load();
             $.ajax({
                 url: 'ajax.php?=update_sch',

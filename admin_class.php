@@ -233,13 +233,18 @@ Class Action {
 
 	function update_sch(){
 		extract($_POST);
-		$query = "UPDATE schools_info SET";
-		$query .= "sk = '$sk'";
+		$json = json_decode($totals);
+		$json = $json[0] -> data;
 
-		// query for schools
-
-		echo $query;
-		$update_sch = $this->db->query($query);
+		foreach($json as $key => $value){
+			$value = get_object_vars($value);
+			$query = "UPDATE schools_info SET total = ".$value[1]." WHERE id = ".$value[0].".";
+	
+			echo $query;
+			$update_sch = $this->db->query($query);
+		}
+		
+		
 		if ($update_sch) {
 			return 1;
 		}
