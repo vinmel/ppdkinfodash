@@ -48,6 +48,14 @@ foreach ($qry as $k => $v) {
 							</dd>
 						</dl>
 					</div>
+					<?php if ($_SESSION['login_type'] == 3): ?>
+						<div class="card-tools">
+							<small class="text-muted">
+								Latest document updated:
+								<?php echo date("d/m/Y H:i:s", strtotime($updated_at)) ?>
+							</small>
+						</div>
+					<?php endif ?>
 				</div>
 			</div>
 		</div>

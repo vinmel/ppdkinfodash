@@ -146,7 +146,7 @@
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="./index.php?page=assign_file_list" class="nav-link nav-assign_file_list tree-item">
+                <a href="./index.php?page=assign_document_list" class="nav-link nav-assign_document_list tree-item">
                   <i class="fas fa-angle-right nav-icon"></i>
                   <p>Assign Document List</p>
                 </a>

@@ -73,7 +73,7 @@
 							<label class="control-label">Password</label>
 							<input type="password" class="form-control form-control-sm" name="password" <?php echo isset($id) ? "" : 'required' ?>>
 							<small><i>
-									<?php echo isset($id) ? "Leave this blank if you dont want to change you password" : '' ?>
+									<?php echo isset($id) ? "Please reset to default password and inform it to user after a few changes." : '' ?>
 							</i></small>
 						</div>
 						<div class="form-group">
