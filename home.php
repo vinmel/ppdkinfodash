@@ -1,10 +1,15 @@
 <?php include('db_connect.php') ?>
+<?php 
+$type = array('',"Admin","User Level 1","User Level 2");
+$qry = $conn->query ("SELECT * FROM users where id ");
+$row = $qry->fetch_assoc();
+?>
 <!-- Info boxes -->
 <?php if($_SESSION['login_type'] == 1): ?>
       <div class="col-8">
           <div class="card">
           	<div class="card-body">
-          		Welcome <?php echo $_SESSION['login_name'] ?>!
+          		Welcome <?php echo $_SESSION['login_name'] ?>! You are log in as <?php echo $type[$_SESSION['login_type']] ?>
           	</div>
           </div>
       </div>
@@ -59,7 +64,7 @@
 	    <div class="col-12">
           <div class="card">
           	<div class="card-body">
-          		Welcome <?php echo $_SESSION['login_name'] ?>!
+            Welcome <?php echo $_SESSION['login_name'] ?>! You are log in as <?php echo $type[$_SESSION['login_type']] ?>
           	</div>
           </div>
       </div>
@@ -101,7 +106,7 @@
 	    <div class="col-12">
           <div class="card">
           	<div class="card-body">
-          		Welcome <?php echo $_SESSION['login_name'] ?>!
+            Welcome <?php echo $_SESSION['login_name'] ?>! You are log in as <?php echo $type[$_SESSION['login_type']] ?>
           	</div>
           </div>
       </div>

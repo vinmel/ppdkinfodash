@@ -2,7 +2,7 @@
 <?php
 if(isset($_GET['id'])){
 	$type_arr = array('',"Admin","User Level 1","User Level 2");
-	$qry = $conn->query("SELECT *,concat(lastname,', ',firstname,' ',middlename) as name FROM users where id = ".$_GET['id'])->fetch_array();
+	$qry = $conn->query("SELECT *,concat(firstname,' ',middlename,' ',lastname) as name FROM users where id = ".$_GET['id'])->fetch_array();
 foreach($qry as $k => $v){
 	$$k = $v;
 }
@@ -24,13 +24,22 @@ foreach($qry as $k => $v){
       <div class="card-footer">
         <div class="container-fluid">
         	<dl>
-        		<dt>Address</dt>
-        		<dd><?php echo $address ?></dd>
-        	</dl>
-        	<dl>
         		<dt>User Type</dt>
         		<dd><?php echo $type_arr[$type] ?></dd>
         	</dl>
+			<dl>
+        		<dt>Job Grade</dt>
+        		<dd><?php echo $grade ?></dd>
+        	</dl>
+			<dl>
+        		<dt>Contact Num</dt>
+        		<dd><?php echo $contact ?></dd>
+        	</dl>
+			<dl>
+        		<dt>Address</dt>
+        		<dd><?php echo $address ?></dd>
+        	</dl>
+        	
         </div>
     </div>
 	</div>

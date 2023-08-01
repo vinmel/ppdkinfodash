@@ -15,6 +15,16 @@ if (isset($_GET['id'])) {
 	<form action="" id="manage-user">
 		<input type="hidden" name="id" value="<?php echo isset($meta['id']) ? $meta['id'] : '' ?>">
 		<div class="form-group">
+			<label for="name">Salutation</label>
+			<input type="text" name="salutation" id="salutation" class="form-control"
+				value="<?php echo isset($meta['salutation']) ? $meta['salutation'] : '' ?>" required>
+		</div>
+		<div class="form-group">
+			<label for="name">Job Grade</label>
+			<input type="text" name="grade" id="grade" class="form-control"
+				value="<?php echo isset($meta['grade']) ? $meta['grade'] : '' ?>" required>
+		</div>
+		<div class="form-group">
 			<label for="name">First Name</label>
 			<input type="text" name="firstname" id="firstname" class="form-control"
 				value="<?php echo isset($meta['firstname']) ? $meta['firstname'] : '' ?>" required>
@@ -30,11 +40,21 @@ if (isset($_GET['id'])) {
 				value="<?php echo isset($meta['lastname']) ? $meta['lastname'] : '' ?>" required>
 		</div>
 		<div class="form-group">
+			<label for="name">Gender</label>
+			<input type="text" name="gender" id="gender" class="form-control"
+				value="<?php echo isset($meta['gender']) ? $meta['gender'] : '' ?>" required>
+		</div>
+		<div class="form-group">
+			<label for="dob">Date of Birth</label>
+			<input type="text" id="dob" name="dob" class="form-control form-control-sm" 
+				value="<?php echo isset($meta['dob']) ? $meta['dob'] : '' ?>" required>
+		</div>
+		<div class="form-group">
 			<label for="username">Email</label>
 			<input type="text" name="email" id="email" class="form-control"
 				value="<?php echo isset($meta['email']) ? $meta['email'] : '' ?>" required autocomplete="off">
 		</div>
-		
+
 		<div class="form-group">
 			<label for="" class="control-label">Avatar</label>
 			<div class="custom-file">
@@ -49,17 +69,19 @@ if (isset($_GET['id'])) {
 		</div>
 		<div class="password-container">
 			<label for="password">Password</label>
-			<input type="password" name="password" id="password" class="form-control"  value=""
-				autocomplete="off">
+			<input type="password" name="password" id="password" class="form-control" value="" autocomplete="off">
 			<span class="toggle-password" onclick="togglePasswordVisibility()">
 				<i class="far fa-eye" id="eye-icon"></i>
 			</span>
-			<small><i>Please re-enter current password or you can enter new password after you've made any changes.</i></small>
+			<small><i>Please re-enter current password or you can enter new password after you've made any
+					changes.</i></small>
 		</div>
 
 
 	</form>
 </div>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <style>
 	img#cimg {
 		max-height: 15vh;
@@ -80,6 +102,14 @@ if (isset($_GET['id'])) {
 	}
 </style>
 <script>
+	$(document).ready(function () {
+		// Set date format as 'yy-mm-dd' (adjust as per your preference)
+		$("#dob").datepicker({
+			dateFormat: 'yy-mm-dd',
+			maxDate: new Date() // Optional: Restrict selection to a maximum date (e.g., no future dates)
+		});
+	});
+
 	function displayImg(input, _this) {
 		if (input.files && input.files[0]) {
 			var reader = new FileReader();
@@ -117,18 +147,18 @@ if (isset($_GET['id'])) {
 
 	// password visibilty function
 	function togglePasswordVisibility() {
-    var passwordInput = document.getElementById("password");
-    var eyeIcon = document.getElementById("eye-icon");
+		var passwordInput = document.getElementById("password");
+		var eyeIcon = document.getElementById("eye-icon");
 
-    if (passwordInput.type === "password") {
-      passwordInput.type = "text";
-      eyeIcon.classList.remove("fa-eye");
-      eyeIcon.classList.add("fa-eye-slash");
-    } else {
-      passwordInput.type = "password";
-      eyeIcon.classList.remove("fa-eye-slash");
-      eyeIcon.classList.add("fa-eye");
-    }
-  }
+		if (passwordInput.type === "password") {
+			passwordInput.type = "text";
+			eyeIcon.classList.remove("fa-eye");
+			eyeIcon.classList.add("fa-eye-slash");
+		} else {
+			passwordInput.type = "password";
+			eyeIcon.classList.remove("fa-eye-slash");
+			eyeIcon.classList.add("fa-eye");
+		}
+	}
 
 </script>
