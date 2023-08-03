@@ -9,15 +9,26 @@
 		</div>
 		<div class="card-body">
 			<table class="table tabe-hover table-bordered" id="list">
+				<colgroup>
+					<col width="10%">
+					<col width="25%">
+					<col width="10%">
+					<col width="12%">
+					<col width="10%">
+					<col width="10%">
+					<col width="10%">
+					<col width="10%">
+				</colgroup>
 				<thead>
 					<tr>
 						<th class="text-center">#</th>
 						<th>Name</th>
-						<th>Contact #</th>
+						<th>Contact No</th>
 						<th>Role</th>
 						<th>Email</th>
+						<th>Date Registered</th>
 						<th>Status</th>
-						<th>Action</th>
+						<th class="text-center">Action</th>
 					</tr>
 				</thead>
 				<tbody>
@@ -33,6 +44,7 @@
 						<td><b><?php echo $row['contact'] ?></b></td>
 						<td><b><?php echo $type[$row['type']] ?></b></td>
 						<td><b><?php echo $row['email'] ?></b></td>
+						<td><?php echo date("d/m/Y H:i:s", strtotime($row['date_created'])) ?></td>
 											<!-- 1,2,3 intellisense--> 
 						<td><b><?php echo ($row['isActive'] == 1 ? "Active" : "Not Active") ?></b></td>
 						<td class="text-center">
