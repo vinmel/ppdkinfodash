@@ -52,7 +52,13 @@ foreach ($qry as $k => $v) {
 						<div class="card-tools">
 							<small class="text-muted">
 								Latest document updated:
-								<?php echo date("d/m/Y H:i:s", strtotime($updated_at)) ?>
+								<?php
+								if (isset($row['updated_at']) && $row['updated_at'] !== '0000-00-00 00:00:00') {
+									echo date("d/m/Y H:i:s", strtotime($row['updated_at']));
+								} else {
+									echo "No Latest Updated";
+								}
+								?>
 							</small>
 						</div>
 					<?php endif ?>
