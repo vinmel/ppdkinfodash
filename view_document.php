@@ -53,8 +53,8 @@ foreach ($qry as $k => $v) {
 							<small class="text-muted">
 								Latest document updated:
 								<?php
-								if (isset($row['updated_at']) && $row['updated_at'] !== '0000-00-00 00:00:00') {
-									echo date("d/m/Y H:i:s", strtotime($row['updated_at']));
+								if (isset($updated_at) && $updated_at !== '0000-00-00 00:00:00') {
+									echo date("d/m/Y H:i:s", strtotime($updated_at));
 								} else {
 									echo "No Latest Updated";
 								}
