@@ -9,12 +9,13 @@ foreach ($qry as $k => $v) {
 ?>
 
 <div class="col-lg-12">
-	<?php if (isset($_SESSION['login_id'])) : ?>
+	<?php if (isset($_SESSION['login_id'])): ?>
 		<div class="row">
-			<?php if ($_SESSION['login_type'] == 2) : ?>
-
+			<?php if ($_SESSION['login_type'] == 2): ?>
+				
 				<div class="col-md-12 mb-2">
-					<button class="btn bg-light border float-right" type="button" id="assign" data-docid="<?php $document_id ?>"><i class="fas fa-share-alt"></i> Assign This Document</button>
+					<button class="btn bg-light border float-right" type="button" id="assign"
+						data-docid="<?php $document_id ?>"><i class="fas fa-share-alt"></i> Assign This Document</button>
 				</div>
 			<?php endif; ?>
 		</div>
@@ -47,7 +48,7 @@ foreach ($qry as $k => $v) {
 							</dd>
 						</dl>
 					</div>
-					<?php if ($_SESSION['login_type'] == 3) : ?>
+					<?php if ($_SESSION['login_type'] == 3): ?>
 						<div class="card-tools">
 							<small class="text-muted">
 								Latest document updated:
@@ -68,7 +69,7 @@ foreach ($qry as $k => $v) {
 			<div class="card card-outline card-primary">
 				<div class="card-header">
 					<h3><b>File/s</b></h3>
-					<?php if ($_SESSION['login_type'] == 3) : ?>
+					<?php if ($_SESSION['login_type'] == 3): ?>
 						<small class="text-muted">
 							Please download the file within 30 days after assigned date.
 						</small>
@@ -81,16 +82,19 @@ foreach ($qry as $k => $v) {
 							download.</div>
 						<div class="row">
 							<?php
-							if (isset($file_json) && !empty($file_json)) :
-								foreach (json_decode($file_json) as $k => $v) :
-									if (is_file('assets/uploads/' . $v)) :
+							if (isset($file_json) && !empty($file_json)):
+								foreach (json_decode($file_json) as $k => $v):
+									if (is_file('assets/uploads/' . $v)):
 										$_f = file_get_contents('assets/uploads/' . $v);
 										$dname = explode('_', $v);
-							?>
+										?>
 
 										<div class="col-sm-3">
-											<a href="download.php?f=<?php echo $v ?>" target="_blank" class="text-white border-rounded file-item p-1">
-												<span class="img-fluid bg-dark border-rounded px-2 py-2 d-flex justify-content-center align-items-center" style="width: 100px;height: 100px">
+											<a href="download.php?f=<?php echo $v ?>" target="_blank"
+												class="text-white border-rounded file-item p-1">
+												<span
+													class="img-fluid bg-dark border-rounded px-2 py-2 d-flex justify-content-center align-items-center"
+													style="width: 100px;height: 100px">
 													<h3 class="bg-dark"><i class="fa fa-download"></i></h3>
 												</span>
 												<span class="text-dark">
@@ -99,7 +103,7 @@ foreach ($qry as $k => $v) {
 											</a>
 										</div>
 									<?php endif; ?>
-								<?php endforeach; ?>
+							<?php endforeach; ?>
 							<?php endif; ?>
 						</div>
 					</div>
@@ -108,8 +112,8 @@ foreach ($qry as $k => $v) {
 		</div>
 
 		<!--Assign record table-->
-		<?php if ($_SESSION['login_type'] == 2) : ?>
-			<div class="cold-md-8">
+		<?php if ($_SESSION['login_type'] == 2): ?>
+			<div class="cold-md-7">
 				<div class="card card-outline card-info">
 					<div class="card-header">
 						<h6><b>Recipient Assigned Record</b></h6>
@@ -120,9 +124,8 @@ foreach ($qry as $k => $v) {
 						<table class="table tabe-hover table-bordered" id="list">
 							<colgroup>
 								<col width="10%">
-								<col width="35%">
+								<col width="25%">
 								<col width="45%">
-								<col width="10%">
 							</colgroup>
 
 							<thead>
@@ -130,7 +133,6 @@ foreach ($qry as $k => $v) {
 									<th class="text-center">No</th>
 									<th>Recipient</th>
 									<th>Date Assigned</th>
-									<th class="text-center">Action</th>
 								</tr>
 							</thead>
 
@@ -141,21 +143,20 @@ foreach ($qry as $k => $v) {
 
 								$qrySharedFiles = $conn->query("SELECT * FROM shared_files WHERE is_deleted = 0 AND document_id = '{$_GET['id']}'");
 
-								while ($row = $qrySharedFiles->fetch_assoc()) :
+								while ($row = $qrySharedFiles->fetch_assoc()):
 									$user = $conn->query("SELECT CONCAT(firstname,' ', lastname) as fullname FROM users WHERE id = '{$row['recipient']}'")->fetch_assoc();
 									$document = $conn->query("SELECT * FROM documents WHERE document_id = '{$row['document_id']}'")->fetch_assoc();
-								?>
+									?>
+
 									<tr>
-										<th class="text-center"><?php echo $i++ ?></th>
-										<td><?php echo isset($user['fullname']) ? $user['fullname'] : "" ?></td>
-										<td><?php echo date($row['assigned_date']) ?></td>
-										<td class="text-center">
-											<!-- Button area -->
-											<div class="btn-group">
-												<button type="button" class="btn btn-danger btn-flat delete_file" data-id="<?php echo $row['id'] ?>">
-													<i class="fas fa-trash"></i>
-												</button>
-											</div>
+										<th class="text-center">
+											<?php echo $i++ ?>
+										</th>
+										<td>
+											<?php echo isset($user['fullname']) ? $user['fullname'] : "" ?>
+										</td>
+										<td>
+											<?php echo date($row['assigned_date']) ?>
 										</td>
 									</tr>
 								<?php endwhile; ?>
@@ -168,56 +169,27 @@ foreach ($qry as $k => $v) {
 	</div>
 </div>
 <script>
-	 $(document).ready(function() {
-        $('#list').DataTable();
-        $('.delete_file').click(function() {
-            _conf("Are you sure to delete this record?", "delete_file", [$(this).attr('data-id')]);
-        });
-    });	
-	function delete_file($id) {
-        start_load();
-        $.ajax({
-            url: 'ajax.php?action=delete_assign_file',
-            method: 'POST',
-            data: {
-                id: $id
-            },
-            error: function(xhr, status, error) {
-				window.alert(error);
-			},
-            success: function(resp) {
-                if (resp) {
-                    alert_toast("Record successfully deleted", 'success');
-                    setTimeout(function() {
-                        location.reload();
-                    }, 1500);
-                }
-            }
-        });
-    }
-
-	$('.file-item').hover(function() {
+	$('.file-item').hover(function () {
 		$(this).addClass("active")
 	})
-	$('file-item').mouseout(function() {
+	$('file-item').mouseout(function () {
 		$(this).removeClass("active")
 	})
-	$('.file-item').click(function(e) {
+	$('.file-item').click(function (e) {
 		e.preventDefault()
 		_conf("Are you sure to download this file?", "dl", ['"' + $(this).attr('href') + '"'])
 	})
-
 	function dl($link) {
 		start_load()
 		window.open($link, "_blank")
 		end_load()
 	}
-	$('#assign').click(function() {
+	$('#assign').click(function () {
 		var documentId = $(this).data('docid');
 		uni_modal("<i class='fa fa-assign'></i> Assign This Document", "modal_assign_file.php?did=" + documentId);
 	});
 
-
+	
 	function assign_file() {
 		start_load();
 		const data = {
@@ -230,15 +202,15 @@ foreach ($qry as $k => $v) {
 			url: 'ajax.php?action=assign_file',
 			method: 'POST',
 			data: data,
-			error: function(xhr, status, error) {
+			error: function (xhr, status, error) {
 				console.error(error);
 			},
-			success: function(resp) {
+			success: function (resp) {
 
 				if (resp) {
 					alert_toast("Data successfully assigned", 'success');
 					// location.reload(3500);
-					setTimeout(function() {
+					setTimeout(function () {
 						location.reload();
 					}, 2000);
 
@@ -246,4 +218,7 @@ foreach ($qry as $k => $v) {
 			}
 		});
 	}
+
+
+
 </script>
