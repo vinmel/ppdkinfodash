@@ -29,3 +29,6 @@ pass: admin123
 
 create your own user
 
+Below is the sample UI of the front Dashboard of KDEO Information Management Dashboard
+![Image](https://github.com/user-attachments/assets/d8360381-1e9a-4f33-b20c-f6b9a9288002)
+
