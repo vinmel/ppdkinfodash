@@ -30,4 +30,4 @@ pass: admin123
 create your own user
 
 Below is the sample UI of the front Dashboard of KDEO Information Management Dashboard
-<img src="Front%20Dashb.jpg">
+![Images](Front%20Dashb.jpg)
