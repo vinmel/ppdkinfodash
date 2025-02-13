@@ -30,5 +30,4 @@ pass: admin123
 create your own user
 
 Below is the sample UI of the front Dashboard of KDEO Information Management Dashboard
-https://github.com/vinmel/ppdkinfodash/blob/master/assets/uploads/Front%20Dashb.jpg
-
+![Images](Front Dashb.jpg)
